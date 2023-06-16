@@ -15,15 +15,24 @@ Aplicación web que permite a cualquier usuario buscar alojamientos dentro del p
 
 
 ### Modelo
-[![](https://mermaid.ink/img/pako:eNqVVFtvmzAU_ivIT-uUIkhpSNBepk1aJ7VZl6ovEy-OfdJYARvZJl2a5b_P5hIwQZvqB7C_852rz_EREUEBJYhkWKmvDL9InKfcM4syCUQzwb3VfY08K5Depz_X196dUHqIfSuhBR-lKEDqg5eiwPcfUuQZeYpC31-avVX5Hy80-3tBsPVfc9tTJ6-4jZ5jc884gQEvrHmuzUfJKuLZ-cdOq42tZj6B3A-49X55QV2BiWXfxjqS1zvpXWrVHdUVP9aIXYx2DLs2TCq9xDl0kNEbIJSz7gA5Zll9PPU92Vs-O1pjvvtMiCi5bqGiXGdMbT9ctYA56R-vvEmQgXJFK-Aa6J3ZCXloRY7HqofOLqXhX1r4l_65oZz6uAW3S2msS3WJY0olKNUBb4L3qqYKTKAnlULkP_v6a6y3A4DsDljSDnmRLMtGQ7f91Yu7sMBliBRreC7sl45Yafvbyd9teru4aYZL9BVM-G0rDetaD9WwrhXq2nVRx0y_1x1LPcHwkkZFNv0vWyC772OgKPWI83aEHccN6GbggCc0QTlIMyLUPJOVcopMmcw0ocRsKWxwmekUpdxScanF04ETlGxwpmCCyuqumpf1jBaYo-SIfqMkivwgDOJoFgTTcBFPZ7MJOqBkuvCjKIxu4ziaR-FNMJ-dJujN9BtKAn8RzuZBtIhv4nAeL24rc78qmZalsQ6UmRF5aF52-zv9BUnGvdk?type=png)](https://mermaid.live/edit#pako:eNqVVFtvmzAU_ivIT-uUIkhpSNBepk1aJ7VZl6ovEy-OfdJYARvZJl2a5b_P5hIwQZvqB7C_852rz_EREUEBJYhkWKmvDL9InKfcM4syCUQzwb3VfY08K5Depz_X196dUHqIfSuhBR-lKEDqg5eiwPcfUuQZeYpC31-avVX5Hy80-3tBsPVfc9tTJ6-4jZ5jc884gQEvrHmuzUfJKuLZ-cdOq42tZj6B3A-49X55QV2BiWXfxjqS1zvpXWrVHdUVP9aIXYx2DLs2TCq9xDl0kNEbIJSz7gA5Zll9PPU92Vs-O1pjvvtMiCi5bqGiXGdMbT9ctYA56R-vvEmQgXJFK-Aa6J3ZCXloRY7HqofOLqXhX1r4l_65oZz6uAW3S2msS3WJY0olKNUBb4L3qqYKTKAnlULkP_v6a6y3A4DsDljSDnmRLMtGQ7f91Yu7sMBliBRreC7sl45Yafvbyd9teru4aYZL9BVM-G0rDetaD9WwrhXq2nVRx0y_1x1LPcHwkkZFNv0vWyC772OgKPWI83aEHccN6GbggCc0QTlIMyLUPJOVcopMmcw0ocRsKWxwmekUpdxScanF04ETlGxwpmCCyuqumpf1jBaYo-SIfqMkivwgDOJoFgTTcBFPZ7MJOqBkuvCjKIxu4ziaR-FNMJ-dJujN9BtKAn8RzuZBtIhv4nAeL24rc78qmZalsQ6UmRF5aF52-zv9BUnGvdk)
+[![](https://mermaid.ink/img/pako:eNqVVE1v2zAM_SuBTtuQGnbqObFvW3fYgDXr2vUy-KJYTCLElgxJbucG-e-T_BFZtoFhPCT04yNFUqTOKOMEUIKyHEv5heKDwEXKFloIFZApytni8XuLPEsQixT5nnefosXNjdYDzwu0biy_6hJa3oPgJQhVT7nbjvsvnol5R1Xd8oxm8YbT8Z1YL5RlMOIFLc_GehC0IV0P_GA9-nxa5hOIlxG31bcT6mfOT5Qd5uv4D6otp7mOtuHnFjFCiWUY2VMh1RYXYCHtN0IIo_YDCkxz-7nD7PQpy3jFlAXLapdTeXz3fhCVSvXjlXWlUJBj4yMwBeSr1rioh0ahDXPkEfUyLttMk1u6nS8jTNdoEcf9OlaOu3sNRqTCqpJTHBMiQEoLvHE2OFmWOIOBVXBe_Bz677A6joDsVGNBLHIQNM9nUzcTN8i7NMA0RYIVPJfml8xEMdPu1G7Hv2-di7yCTrkfrHEv27Ua97JB3Zgu6oTpp96J0oHjC5nApsy7I2Snb2wG5JWaObBfXufADnSzdsALWqIChF4Sot_ExjlFujV6n1CiVQJ7XOUqRSkzVFwp_lSzDCV7nEtYoqq5k-4ZvaIlZig5oz8oCUPPD_x1GPn-KojXqyhaoholq9gLwyD8uF6HmzC49TfRZYne9FyhxPfiINr4YRxri1Zugybe78aoRKXDA6F6le67d9z8Xf4CkZquiw?type=png)](https://mermaid.live/edit#pako:eNqVVE1v2zAM_SuBTtuQGnbqObFvW3fYgDXr2vUy-KJYTCLElgxJbucG-e-T_BFZtoFhPCT04yNFUqTOKOMEUIKyHEv5heKDwEXKFloIFZApytni8XuLPEsQixT5nnefosXNjdYDzwu0biy_6hJa3oPgJQhVT7nbjvsvnol5R1Xd8oxm8YbT8Z1YL5RlMOIFLc_GehC0IV0P_GA9-nxa5hOIlxG31bcT6mfOT5Qd5uv4D6otp7mOtuHnFjFCiWUY2VMh1RYXYCHtN0IIo_YDCkxz-7nD7PQpy3jFlAXLapdTeXz3fhCVSvXjlXWlUJBj4yMwBeSr1rioh0ahDXPkEfUyLttMk1u6nS8jTNdoEcf9OlaOu3sNRqTCqpJTHBMiQEoLvHE2OFmWOIOBVXBe_Bz677A6joDsVGNBLHIQNM9nUzcTN8i7NMA0RYIVPJfml8xEMdPu1G7Hv2-di7yCTrkfrHEv27Ua97JB3Zgu6oTpp96J0oHjC5nApsy7I2Snb2wG5JWaObBfXufADnSzdsALWqIChF4Sot_ExjlFujV6n1CiVQJ7XOUqRSkzVFwp_lSzDCV7nEtYoqq5k-4ZvaIlZig5oz8oCUPPD_x1GPn-KojXqyhaoholq9gLwyD8uF6HmzC49TfRZYne9FyhxPfiINr4YRxri1Zugybe78aoRKXDA6F6le67d9z8Xf4CkZquiw)
 
 *A métodos prácticos evitamos la declaración de métodos getters en el diagrama.*
 
 ## Alcance Funcional 
 
+### Alcance para regularidad
 |Req|Detalle|
 |:-|:-|
-|CRUD simple|1. CRUD Host<br>2. CRUD Guest<br>3. CRUD Location<br>4. CRUD Province<br>5. CRUD Property<br>6. CRUD Reservation<br>7. CRUD Price<br>8. CRUD Service|
-|CRUD dependiente|1. CRUD Host {depende de} CRUD Location<br>2. CRUD Guest {depende de} CRUD Location<br>3. CRUD Location {depende de} CRUD Province<br>4. CRUD Price {depende de} CRUD Property<br>5. CRUD Reservation {depende de} CRUD Property<br>6. CRUD Property {depende de} CRUD Location|
+|CRUD simple|1. CRUD Province<br>2. CRUD UserType|
+|CRUD dependiente|1. CRUD User {depende de} CRUD City y CRUD UserType<br>2. CRUD City {depende de} CRUD Province<br>3. CRUD Booking {depende de} CRUD Property y CRUD User<br>4. CRUD Property {depende de} CRUD City y CRUD User|
+|Listado<br>+<br>detalle| 1. Listado alojamientos por ciudad/provincia<br> 2. Listado de reservas filtrado por rango de fecha, id de propiedad, fecha inicio y fin alquiler, estado y nombre del cliente<br>|
+|CUU/Epic|1. Registrar reserva de alojamiento<br>2. Registrar alojamiento para alquilar|
+
+### Alcance para AD
+|Req|Detalle|
+|:-|:-|
+|CRUD simple|1. CRUD Province<br>2. CRUD Service<br>3. CRUD UserType|
+|CRUD dependiente|1. CRUD User {depende de} CRUD City y CRUD UserType<br>2. CRUD City {depende de} CRUD Province<br>3. CRUD Booking {depende de} CRUD Property y CRUD User<br>4. CRUD Property {depende de} CRUD City y CRUD User|
 |Listado<br>+<br>detalle| 1. Listado alojamientos por localidad/provincia<br> 2. Listado de reservas filtrado por rango de fecha, id de propiedad, fecha inicio y fin alquiler, estado y nombre del cliente<br> 3.Listado de historial de alojamientos del huesped.<br>4. Listado de alojamientos según filtros de la propiedad (ej. precio, ambientes, camas, baños, patio,etc…)|
-|CUU/Epic|1. Registrar reserva de alojamiento<br>2. Registrar alojamiento para alquilar<br>3. Registrar cancelación de reserva (de anfitrión o de huesped)<br> 4. Buscar alojamientos por filtros<br> 5. Actualizar precio de alojamiento|
+|CUU/Epic|1. Registrar reserva de alojamiento<br>2. Registrar alojamiento para alquilar<br>3. Registrar cancelación de reserva (de anfitrión o de huesped)<br>4. Actualizar precio de alojamiento(? o se accede con el CRUD Property?)|
