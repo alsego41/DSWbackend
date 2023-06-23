@@ -29,6 +29,9 @@ Aplicación web que permite a cualquier usuario buscar alojamientos dentro del p
 |Listado<br>+<br>detalle| 1. Listado alojamientos por ciudad/provincia<br> 2. Listado de reservas filtrado por rango de fecha, id de propiedad, fecha inicio y fin alquiler, estado y nombre del cliente<br>|
 |CUU/Epic|1. Registrar reserva de alojamiento<br>2. Registrar alojamiento para alquilar|
 
+Dejar lo que necesitamos minimo para regularidad, lo demas lo cargamos por bbdd
+Property y Booking no son Crud, lo tenemos en base del CUU
+
 ### Alcance para AD
 |Req|Detalle|
 |:-|:-|
