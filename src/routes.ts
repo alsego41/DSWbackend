@@ -233,7 +233,6 @@ new Property(
 ]
 
 const testUsers = [
-  
     new User( 
      1,
      "Juan",
@@ -310,20 +309,20 @@ app.get('/property/:id', (req, res) => {
 // agregar middleware user auth
 app.post('/property/new', (req, res) => {
   console.log(req.body);
-  let newProperty = {
-    idProperty: Math.trunc(Math.random() * 100000),
-    nameProperty: req.body.nameProperty,
-    statusProperty: "Disponible",
-    photo: "./assets/testcasa.jpg",
-    address: req.body.address,
-    zone: req.body.zone,
-    m2: req.body.m2,
-    spaces: req.body.spaces,
-    roomQty: req.body.roomQty,
-    bathQty: req.body.bathQty,
-    backyard: req.body.backyard,
-    grill: req.body.grill
-  }
+  let newProperty = new Property(
+    Math.trunc(Math.random() * 100000),
+    req.body.nameProperty,
+    "Disponible",
+    "./assets/testcasa.jpg",
+    req.body.address,
+    req.body.zone,
+    req.body.m2,
+    req.body.spaces,
+    req.body.roomQty,
+    req.body.bathQty,
+    req.body.backyard,
+    req.body.grill
+  )
   testProperties.push(newProperty)
 })
 
@@ -342,18 +341,18 @@ app.post('/user/login', async (req, res) => {
 
 app.post('/user/register', async (req, res) => {
   console.log(req.body)
-  let newUser = {
-    idUser: Math.trunc(Math.random() * 100000),
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    dni: req.body.DNI,
-    email: req.body.email,
-    address: req.body.address,
-    password: await bcrypt.hash(req.body.password, 10),
-    birthDate: req.body.dob,
-    bankAccount: ""
-  }
-  // testUsers.push(newUser)
+  let newUser = new User(
+    Math.trunc(Math.random() * 100000),
+    req.body.firstName,
+    req.body.lastName,
+    req.body.DNI,
+    req.body.email,
+    req.body.address,
+    await bcrypt.hash(req.body.password, 10),
+    req.body.dob,
+    ""
+  )
+  testUsers.push(newUser)
 })
 
 export default app
