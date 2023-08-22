@@ -1,5 +1,8 @@
 import express from "express"
 import bcrypt from 'bcrypt'
+import {user} from "./models/user.js"
+
+
 
 const app = express()
 
@@ -232,61 +235,63 @@ const testProperties = [
 ]
 
 const testUsers = [
-  {
-    idUser: 1,
-    firstName: "Juan",
-    lastName: "Perez",
-    dni: 41231232,
-    email: "juanperez@gmail.com",
-    address: "Corrientes 123",
-    password: "$2b$10$5tWEbslzYwthO3cXxuHwqO.7kyjwI//PKJzBt/HvZ63reArx7Wrw.",
-    birthDate: "2000-01-12",
-    bankAccount: ""
-  },
-  {
-    idUser: 2,
-    firstName: "Pipo",
-    lastName: "Perez",
-    dni: 41232232,
-    email: "pipoperez@gmail.com",
-    address: "Corrientes 123",
-    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
-    birthDate: "1998-01-02",
-    bankAccount: ""
-  },
-  {
-    idUser: 3,
-    firstName: "Juan",
-    lastName: "Carlos",
-    dni: 41248261,
-    email: "Juanca@gmail.com",
-    address: "Calle falsa 123",
-    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
-    birthDate: "1969-12-15",
-    bankAccount: ""
-  },
-  {
-    idUser: 4,
-    firstName: "Susana",
-    lastName: "Gimenez",
-    dni: 17594268,
-    email: "lasugimenez@gmail.com",
-    address: "Callao 5894",
-    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
-    birthDate: "1958-11-15",
-    bankAccount: ""
-  },
-  {
-    idUser: 5,
-    firstName: "Mirta",
-    lastName: "Legrand",
-    dni: 10000000,
-    email: "laschiqui@gmail.com",
-    address: "Panama 1587",
-    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
-    birthDate: "1900-01-14",
-    bankAccount: ""
-  },
+  
+    new user( 
+     1,
+     "Juan",
+     "Perez",
+     41231232,
+     "juanperez@gmail.com",
+    "Corrientes 123",
+     "$2b$10$5tWEbslzYwthO3cXxuHwqO.7kyjwI//PKJzBt/HvZ63reArx7Wrw.",
+     "2000-01-12",
+     ""
+    ),
+  
+  new user(
+     2,
+     "Pipo",
+     "Perez",
+     41232232,
+     "pipoperez@gmail.com",
+     "Corrientes 123",
+     "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+     "1998-01-02",
+     ""
+  ),
+  new user(
+     3,
+     "Juan",
+     "Carlos",
+     41248261,
+     "Juanca@gmail.com",
+    "Calle falsa 123",
+     "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+     "1969-12-15",
+    ""
+  ),
+  new user(
+     4,
+     "Susana",
+    "Gimenez",
+     17594268,
+     "lasugimenez@gmail.com",
+     "Callao 5894",
+     "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+     "1958-11-15",
+     ""
+  ),
+  new user(
+     5,
+    "Mirta",
+    "Legrand",
+    10000000,
+     "laschiqui@gmail.com",
+     "Panama 1587",
+     "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+     "1900-01-14",
+     ""
+  ),
   
 ]
 
