@@ -304,17 +304,53 @@ app.get('/property/:id', (req, res) => {
   res.json(testProperties.find(prop => prop.idProperty === Number(req.params.id)))
 })
 
+// agregar middleware user auth
+app.post('/property/new', (req, res) => {
+  console.log(req.body);
+  let newProperty = {
+    idProperty: Math.trunc(Math.random() * 100000),
+    nameProperty: req.body.nameProperty,
+    statusProperty: "Disponible",
+    photo: "./assets/testcasa.jpg",
+    address: req.body.address,
+    zone: req.body.zone,
+    m2: req.body.m2,
+    spaces: req.body.spaces,
+    roomQty: req.body.roomQty,
+    bathQty: req.body.bathQty,
+    backyard: req.body.backyard,
+    grill: req.body.grill
+  }
+  testProperties.push(newProperty)
+})
+
 app.post('/user/login', async (req, res) => {
-  console.log(req.body.password);
+  console.log(req.body);
   let user = testUsers.find(user => user.email === req.body.email)
   let login : Boolean = false
   await bcrypt.compare(req.body.password, user?.password || "", (err, result) => {
-    if (err) res.status(500).send('Retry')
+    if (err) res.status(500).json({status: false})
     login = result
     login ? 
-      res.status(200).send("Login success") :
-      res.status(401).send("Login failed")
+      res.status(200).json({status: true}) :
+      res.status(401).json({status: false})
   })
+})
+
+app.post('/user/register', async (req, res) => {
+  console.log(req.body)
+  let newUser = {
+    idUser: Math.trunc(Math.random() * 100000),
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    dni: req.body.DNI,
+    email: req.body.email,
+    address: req.body.address,
+    password: await bcrypt.hash(req.body.password, 10),
+    birthDate: req.body.dob,
+    bankAccount: ""
+  }
+  testUsers.push(newUser)
 })
 
 export default app
