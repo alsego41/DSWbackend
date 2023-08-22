@@ -1,6 +1,4 @@
-
-
-export class user {
+export class User {
    constructor(
     public idUser: number,
     public Firstname:string,
