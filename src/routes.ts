@@ -1,242 +1,240 @@
 import express from "express"
 import bcrypt from 'bcrypt'
-import {user} from "./models/user.js"
-
-
+import { User } from "./models/user.js"
+import { Property } from "./models/property.js"
 
 const app = express()
 
 const testProperties = [
-    {
-      idProperty: 102,
-      nameProperty: "Casa elegante Barrio España",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Buenos Aires 132",
-      zone: "España",
-      m2: 40,
-      spaces: 3,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: false
-    },
-    {
-      idProperty: 103,
-      nameProperty: "Casa elegante Barrio Martin",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Buenos Aires 132",
-      zone: "Martin",
-      m2: 50,
-      spaces: 3,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: false
-    },
-    {
-      idProperty: 104,
-      nameProperty: "Casa elegante Barrio Banana",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Buenos Aires 132",
-      zone: "Banana",
-      m2: 30,
-      spaces: 3,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: false
-    },
-    {
-      idProperty: 105,
-      nameProperty: "Casa elegante Barrio Urquiza",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Buenos Aires 132",
-      zone: "Urquiza",
-      m2: 40,
-      spaces: 3,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: false
-    },
-    {
-      idProperty: 106,
-      nameProperty: "Casa elegante Barrio Chascomus",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Buenos Aires 132",
-      zone: "Chascomus",
-      m2: 40,
-      spaces: 3,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: false
-    },
-    {
-      idProperty: 107,
-      nameProperty: "Casa elegante Barrio Pichincha",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Santiago 105",
-      zone: "Pichincha",
-      m2: 58,
-      spaces: 4,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: false,
-      grill: true
-    },
-    {
-      idProperty: 108,
-      nameProperty: "Casa elegante Barrio Echesortu",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "San Luis 4107",
-      zone: "Echesortu",
-      m2: 60,
-      spaces: 4,
-      roomQty: 3,
-      bathQty: 2,
-      backyard: true,
-      grill: true
-    },
-    {
-      idProperty: 109,
-      nameProperty: "Casa elegante Barrio Abasto",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Pasco 1881",
-      zone: "Abasto",
-      m2: 38,
-      spaces: 2,
-      roomQty: 1,
-      bathQty: 1,
-      backyard: false,
-      grill: false
-    },
-    {
-      idProperty: 110,
-      nameProperty: "Casa Barrio Republica de la sexta",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Colon 1880",
-      zone: "Republica de la sexta",
-      m2: 50,
-      spaces: 4,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: true
-    },
-    {
-      idProperty: 111,
-      nameProperty: "Casa Barrio Luis Agote",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Alsina 525",
-      zone: "Luis Agote",
-      m2: 42,
-      spaces: 4,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: true
-    },
-    {
-      idProperty: 112,
-      nameProperty: "Casa Barrio Centro",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Paraguay 408",
-      zone: "Centro",
-      m2: 37,
-      spaces: 2,
-      roomQty: 1,
-      bathQty: 1,
-      backyard: false,
-      grill: false
-    },
-    {
-      idProperty: 113,
-      nameProperty: "Casa Barrio Centro",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Urquiza 1101",
-      zone: "Centro",
-      m2: 33,
-      spaces: 3,
-      roomQty: 1,
-      bathQty: 1,
-      backyard: false,
-      grill: false
-    },
-    {
-      idProperty: 114,
-      nameProperty: "Casa Barrio Centro",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "San Juan 1159",
-      zone: "Centro",
-      m2: 39,
-      spaces: 3,
-      roomQty: 1,
-      bathQty: 1,
-      backyard: false,
-      grill: true
-    },
-    {
-      idProperty: 115,
-      nameProperty: "Casa elegante Barrio Echesortu",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "San Nicolas 1059",
-      zone: "Echesortu",
-      m2: 51,
-      spaces: 4,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: true
-    },
-    {
-      idProperty: 116,
-      nameProperty: "Casa elegante Barrio Echesortu",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Alsina 1337",
-      zone: "Echesortu",
-      m2: 42,
-      spaces: 4,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: true
-    },
-    {
-      idProperty: 117,
-      nameProperty: "Casa elegante Barrio Bella Vista",
-      statusProperty: "Disponible",
-      photo: "./assets/testcasa.jpg",
-      address: "Lavalle 2530",
-      zone: "Echesortu",
-      m2: 47,
-      spaces: 4,
-      roomQty: 2,
-      bathQty: 1,
-      backyard: true,
-      grill: true
-    },
-
+  new Property(
+    102,
+    "Casa elegante Barrio España",
+    "Disponible",
+    "./assets/testcasa.jpg",
+    "Buenos Aires 132",
+    "España",
+    40,
+    3,
+    2,
+    1,
+    true,
+    false
+  ),
+  new Property(
+    103,
+    "Casa elegante Barrio Martin",
+    "Disponible",
+    "./assets/testcasa.jpg",
+    "Buenos Aires 132",
+    "Martin",
+    50,
+    3,
+    2,
+    1,
+    true,
+    false
+  ),
+  new Property(  
+    104,
+    "Casa elegante Barrio Banana",
+    "Disponible",
+    "./assets/testcasa.jpg",
+    "Buenos Aires 132",
+    "Banana",
+    30,
+    3,
+    2,
+    1,
+    true,
+    false
+  ),
+  new Property(
+      105,
+      "Casa elegante Barrio Urquiza",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Buenos Aires 132",
+      "Urquiza",
+      40,
+      3,
+      2,
+      1,
+      true,
+      false
+),
+new Property(
+      106,
+      "Casa elegante Barrio Chascomus",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Buenos Aires 132",
+      "Chascomus",
+      40,
+      3,
+      2,
+      1,
+      true,
+      false
+),
+new Property(
+      107,
+      "Casa elegante Barrio Pichincha",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Santiago 105",
+      "Pichincha",
+      58,
+      4,
+      2,
+      1,
+      false,
+      true
+),
+new Property(
+      108,
+      "Casa elegante Barrio Echesortu",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "San Luis 4107",
+      "Echesortu",
+      60,
+      4,
+      3,
+      2,
+      true,
+      true
+),
+new Property(
+      109,
+      "Casa elegante Barrio Abasto",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Pasco 1881",
+      "Abasto",
+      38,
+      2,
+      1,
+      1,
+      false,
+      false
+),
+new Property(
+      110,
+      "Casa Barrio Republica de la sexta",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Colon 1880",
+      "Republica de la sexta",
+      50,
+      4,
+      2,
+      1,
+      true,
+      true
+),
+new Property(
+      111,
+      "Casa Barrio Luis Agote",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Alsina 525",
+      "Luis Agote",
+      42,
+      4,
+      2,
+      1,
+      true,
+      true
+),
+new Property(
+      112,
+      "Casa Barrio Centro",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Paraguay 408",
+      "Centro",
+      37,
+      2,
+      1,
+      1,
+      false,
+      false
+),
+new Property(
+      113,
+      "Casa Barrio Centro",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "Urquiza 1101",
+      "Centro",
+      33,
+      3,
+      1,
+      1,
+      false,
+      false
+),
+new Property(
+      114,
+      "Casa Barrio Centro",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "San Juan 1159",
+      "Centro",
+      39,
+      3,
+      1,
+      1,
+      false,
+      true
+),
+new Property(
+      115,
+      "Casa elegante Barrio Echesortu",
+      "Disponible",
+      "./assets/testcasa.jpg",
+      "San Nicolas 1059",
+      "Echesortu",
+      51,
+      4,
+      2,
+      1,
+      true,
+      true
+),
+  new Property(
+    116,
+    "Casa elegante Barrio Echesortu",
+    "Disponible",
+    "./assets/testcasa.jpg",
+    "Alsina 1337",
+    "Echesortu",
+    42,
+    4,
+    2,
+    1,
+    true,
+    true
+  ),
+  new Property(
+    117,
+    "Casa elegante Barrio Bella Vista",
+    "Disponible",
+    "./assets/testcasa.jpg",
+    "Lavalle 2530",
+    "Echesortu",
+    47,
+    4,
+    2,
+    1,
+    true,
+    true
+  ),
 ]
 
 const testUsers = [
   
-    new user( 
+    new User( 
      1,
      "Juan",
      "Perez",
@@ -248,7 +246,7 @@ const testUsers = [
      ""
     ),
   
-  new user(
+  new User(
      2,
      "Pipo",
      "Perez",
@@ -259,7 +257,7 @@ const testUsers = [
      "1998-01-02",
      ""
   ),
-  new user(
+  new User(
      3,
      "Juan",
      "Carlos",
@@ -270,7 +268,7 @@ const testUsers = [
      "1969-12-15",
     ""
   ),
-  new user(
+  new User(
      4,
      "Susana",
     "Gimenez",
@@ -281,7 +279,7 @@ const testUsers = [
      "1958-11-15",
      ""
   ),
-  new user(
+  new User(
      5,
     "Mirta",
     "Legrand",
@@ -355,7 +353,7 @@ app.post('/user/register', async (req, res) => {
     birthDate: req.body.dob,
     bankAccount: ""
   }
-  testUsers.push(newUser)
+  // testUsers.push(newUser)
 })
 
 export default app
