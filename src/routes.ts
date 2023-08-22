@@ -74,6 +74,161 @@ const testProperties = [
       backyard: true,
       grill: false
     },
+    {
+      idProperty: 107,
+      nameProperty: "Casa elegante Barrio Pichincha",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Santiago 105",
+      zone: "Pichincha",
+      m2: 58,
+      spaces: 4,
+      roomQty: 2,
+      bathQty: 1,
+      backyard: false,
+      grill: true
+    },
+    {
+      idProperty: 108,
+      nameProperty: "Casa elegante Barrio Echesortu",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "San Luis 4107",
+      zone: "Echesortu",
+      m2: 60,
+      spaces: 4,
+      roomQty: 3,
+      bathQty: 2,
+      backyard: true,
+      grill: true
+    },
+    {
+      idProperty: 109,
+      nameProperty: "Casa elegante Barrio Abasto",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Pasco 1881",
+      zone: "Abasto",
+      m2: 38,
+      spaces: 2,
+      roomQty: 1,
+      bathQty: 1,
+      backyard: false,
+      grill: false
+    },
+    {
+      idProperty: 110,
+      nameProperty: "Casa Barrio Republica de la sexta",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Colon 1880",
+      zone: "Republica de la sexta",
+      m2: 50,
+      spaces: 4,
+      roomQty: 2,
+      bathQty: 1,
+      backyard: true,
+      grill: true
+    },
+    {
+      idProperty: 111,
+      nameProperty: "Casa Barrio Luis Agote",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Alsina 525",
+      zone: "Luis Agote",
+      m2: 42,
+      spaces: 4,
+      roomQty: 2,
+      bathQty: 1,
+      backyard: true,
+      grill: true
+    },
+    {
+      idProperty: 112,
+      nameProperty: "Casa Barrio Centro",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Paraguay 408",
+      zone: "Centro",
+      m2: 37,
+      spaces: 2,
+      roomQty: 1,
+      bathQty: 1,
+      backyard: false,
+      grill: false
+    },
+    {
+      idProperty: 113,
+      nameProperty: "Casa Barrio Centro",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Urquiza 1101",
+      zone: "Centro",
+      m2: 33,
+      spaces: 3,
+      roomQty: 1,
+      bathQty: 1,
+      backyard: false,
+      grill: false
+    },
+    {
+      idProperty: 114,
+      nameProperty: "Casa Barrio Centro",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "San Juan 1159",
+      zone: "Centro",
+      m2: 39,
+      spaces: 3,
+      roomQty: 1,
+      bathQty: 1,
+      backyard: false,
+      grill: true
+    },
+    {
+      idProperty: 115,
+      nameProperty: "Casa elegante Barrio Echesortu",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "San Nicolas 1059",
+      zone: "Echesortu",
+      m2: 51,
+      spaces: 4,
+      roomQty: 2,
+      bathQty: 1,
+      backyard: true,
+      grill: true
+    },
+    {
+      idProperty: 116,
+      nameProperty: "Casa elegante Barrio Echesortu",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Alsina 1337",
+      zone: "Echesortu",
+      m2: 42,
+      spaces: 4,
+      roomQty: 2,
+      bathQty: 1,
+      backyard: true,
+      grill: true
+    },
+    {
+      idProperty: 117,
+      nameProperty: "Casa elegante Barrio Bella Vista",
+      statusProperty: "Disponible",
+      photo: "./assets/testcasa.jpg",
+      address: "Lavalle 2530",
+      zone: "Echesortu",
+      m2: 47,
+      spaces: 4,
+      roomQty: 2,
+      bathQty: 1,
+      backyard: true,
+      grill: true
+    },
+
 ]
 
 const testUsers = [
@@ -98,7 +253,41 @@ const testUsers = [
     password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
     birthDate: "1998-01-02",
     bankAccount: ""
-  }
+  },
+  {
+    idUser: 3,
+    firstName: "Juan",
+    lastName: "Carlos",
+    dni: 41248261,
+    email: "Juanca@gmail.com",
+    address: "Calle falsa 123",
+    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+    birthDate: "1969-12-15",
+    bankAccount: ""
+  },
+  {
+    idUser: 4,
+    firstName: "Susana",
+    lastName: "Gimenez",
+    dni: 17594268,
+    email: "lasugimenez@gmail.com",
+    address: "Callao 5894",
+    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+    birthDate: "1958-11-15",
+    bankAccount: ""
+  },
+  {
+    idUser: 5,
+    firstName: "Mirta",
+    lastName: "Legrand",
+    dni: 10000000,
+    email: "laschiqui@gmail.com",
+    address: "Panama 1587",
+    password: "$2b$10$Sl3w4OvQdwg8sJ8A0HXzPO2Bo6kauMqa/UxURw9RFaG9z7qo1omcC",
+    birthDate: "1900-01-14",
+    bankAccount: ""
+  },
+  
 ]
 
 // perez123, pperez123
