@@ -115,6 +115,26 @@ app.get('/property/:id', (req, res) => {
   res.json(testProperties.find(prop => prop.idProperty === Number(req.params.id)))
 })
 
+// agregar middleware user auth
+app.post('/property/new', (req, res) => {
+  console.log(req.body);
+  let newProperty = {
+    idProperty: Math.trunc(Math.random() * 100000),
+    nameProperty: req.body.nameProperty,
+    statusProperty: "Disponible",
+    photo: "./assets/testcasa.jpg",
+    address: req.body.address,
+    zone: req.body.zone,
+    m2: req.body.m2,
+    spaces: req.body.spaces,
+    roomQty: req.body.roomQty,
+    bathQty: req.body.bathQty,
+    backyard: req.body.backyard,
+    grill: req.body.grill
+  }
+  testProperties.push(newProperty)
+})
+
 app.post('/user/login', async (req, res) => {
   console.log(req.body);
   let user = testUsers.find(user => user.email === req.body.email)
