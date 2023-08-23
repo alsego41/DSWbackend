@@ -303,7 +303,9 @@ app.get('/property', (req, res) => {
 })
 
 app.get('/property/:id', (req, res) => {
-  res.json(testProperties.find(prop => prop.idProperty === Number(req.params.id)))
+  const property = testProperties.find(prop => prop.idProperty === Number(req.params.id))
+  if (!property) { res.status(404).send({message: 'Property not found'}) }  
+  res.json(property)
 })
 
 // agregar middleware user auth
