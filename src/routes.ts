@@ -1,6 +1,6 @@
 import express from "express"
 import bcrypt from 'bcrypt'
-import { User } from "./models/user.js"
+/*import { User } from "./models/user.js"*/
 // import { Property } from "./models/property.js"
 import { propertySchema } from "./models/propertySchema.js"
 import { userSchema } from "./models/userSchema.js"
@@ -235,7 +235,7 @@ const app = express()
 //   ),
 // ]
 
-const testUsers = [
+/*const testUsers = [
     new User( 
      1,
      "Juan",
@@ -294,10 +294,10 @@ const testUsers = [
   ),
   
 ]
-
+*/
 // perez123, pperez123
 const Property = mongoose.model('Property', propertySchema)
-
+const User = mongoose.model('User', userSchema)
 
 app.get('/', (req,res) => {
     res.send("<h1>HOLA</h1>")
@@ -335,7 +335,7 @@ app.post('/property/new', async (req, res) => {
   console.log('se guardo¿¿')
   // testProperties.push(newProperty)
 })
-
+/*
 app.post('/user/login', async (req, res) => {
   console.log(req.body);
   let user = testUsers.find(user => user.email === req.body.email)
@@ -348,21 +348,23 @@ app.post('/user/login', async (req, res) => {
       res.status(401).json({status: false})
   })
 })
-
+*/
 app.post('/user/register', async (req, res) => {
   console.log(req.body)
-  let newUser = new User(
-    Math.trunc(Math.random() * 100000),
-    req.body.firstName,
-    req.body.lastName,
-    req.body.DNI,
-    req.body.email,
-    req.body.address,
-    await bcrypt.hash(req.body.password, 10),
-    req.body.dob,
-    ""
-  )
-  testUsers.push(newUser)
+  let newUser = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    dni: req.body.DNI,
+    email: req.body.email,
+    address: req.body.address,
+    password: await bcrypt.hash(req.body.password, 10),
+    dob: req.body.dob,
+    bankAccount: ""
+})
+ await newUser.save()
+ console.log('se guardo usuario')
+
+
 })
 
 export default app
