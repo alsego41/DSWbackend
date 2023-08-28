@@ -11,28 +11,6 @@ export const propertySchema = new mongoose.Schema({
     roomQty: {type: Number, required: true},
     bathQty: {type: Number, required: true},
     backyard: Boolean,
-    grill: Boolean
-    // fechaCreacion: Date.now
+    grill: Boolean,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
-
-// const Property = mongoose.model('Property', propertySchema)
-
-// const newProperty = new Property({
-//     nameProperty: "Casa elegante Barrio España",
-//     statusProperty: "Disponible",
-//     photo: "./assets/testcasa.jpg",
-//     address: "Buenos Aires 132",
-//     zone: "España",
-//     m2: 40,
-//     spaces: 3,
-//     roomQty: 2,
-//     bathQty: 1,
-//     backyard: true,
-//     grill: false
-// })
-
-// save a property
-// await newProperty.save()
-
-// retrieve all properties
-// const allProperties = await Property.find()
