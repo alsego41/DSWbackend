@@ -1,6 +1,9 @@
 import express from "express"
 import cors from "cors"
 import routes from "./routes.js"
+import mongoose from "mongoose"
+import "dotenv/config"
+
 
 const app = express()
 
@@ -23,3 +26,10 @@ app.use((req, res) => {
 app.listen(3000, () => {
     console.log("Listening in 3000");
 })
+
+try {
+    await mongoose.connect(process.env.MONGO_URI || "")
+    console.log('connected to database')
+} catch (error) {
+    console.log(error)
+}
