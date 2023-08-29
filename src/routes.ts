@@ -9,31 +9,31 @@ const app = express()
 const Property = mongoose.model('Property', propertySchema)
 const User = mongoose.model('User', userSchema)
 
-app.get('/', (req,res) => {
-    res.send("<h1>HOLA</h1>")
-})
+// app.get('/', (req,res) => {
+//     // res.send("<h1>HOLA</h1>")
+// })
 
 app.get('/property', async (req, res) => {    
     const allProperties = await Property.find()
-    console.log(allProperties)
-    res.json(allProperties)
+    // console.log(allProperties)
+    res.status(200).json(allProperties)
 })
 
 app.get('/property/:id', async (req, res) => {
   const property = await Property.findById(req.params.id)
   if (!property) { res.status(404).json({message: 'Property not found'}) }  
-  res.json(property)
+  res.status(200).json(property)
 })
-
+// ver q pasa cuando no existe el id, xq explota el sv
 app.get('/property/:id/user', async (req, res) => {
   const property = await Property.findById(req.params.id).populate('user')
   if (!property) { res.status(404).json({message: 'Property not found'}) }  
-  res.json(property)
+  res.status(200).json(property)
 })
 
 // // agregar middleware user auth
 app.post('/property/new',  async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const newProperty = new Property({
     nameProperty: req.body.nameProperty,
     statusProperty: "Disponible",
@@ -49,11 +49,18 @@ app.post('/property/new',  async (req, res) => {
     user: "64e935364a16b7b86ce88414"
   })
   await newProperty.save()
-  console.log('se guardo¿¿')
+  .then(property => {
+    console.log(`Property ${property._id} created`)
+   res.status(201).json({message: "Property created"})
+ })
+  .catch(err => {
+   console.log(err._message)
+   res.status(400).json({message: err._message})
+ })
 })
 
 app.post('/user/login', async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const user = await User.findOne({email: req.body.email})
   if (!user) { res.status(404).json({message: 'User not found'}) }
   let login : Boolean = false
@@ -67,7 +74,7 @@ app.post('/user/login', async (req, res) => {
 })
 
 app.post('/user/register', async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   let newUser = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -79,7 +86,14 @@ app.post('/user/register', async (req, res) => {
     bankAccount: ""
 })
  await newUser.save()
- console.log('se guardo usuario')
+ .then(user => {
+   console.log(`User ${user._id} created`)
+  res.status(201).json({message: "User created"})
+})
+ .catch(err => {
+  console.log(err._message)
+  res.status(400).json({message: err._message})
+})
 })
 
 export default app
