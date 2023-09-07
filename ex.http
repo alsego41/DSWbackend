@@ -1,0 +1,32 @@
+###
+GET http://localhost:3000
+
+###
+GET http://localhost:3000/property
+
+###
+GET http://localhost:3000/property/64ed21809160d3753831adea
+
+###
+GET http://localhost:3000/property/64ed21809160d3753831adea/user
+
+###
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "email": "beto@gmail.com",
+    "password": "beto"
+}
+
+###
+POST http://localhost:3000/user/verify HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOltdLCJpYXQiOjE2OTM4NjcwNDIsImV4cCI6MTY5Mzg2ODg0Mn0.NaSu54dg90DySGSB6lR7wdg6RCyu8QJU0C4T7HZOkI8"
+}
+
+###
+GET http://localhost:3000/user/properties
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0ZTkxOWE1ODllYTc3ZTI4YzkyIiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5Mzk1NjcxNCwiZXhwIjoxNjkzOTU4NTE0fQ.pcLdnr0rwFLtNsErbshhbed7MVTqg1ElKUW6LSyiRqU"
