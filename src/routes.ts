@@ -12,12 +12,15 @@ const Property = mongoose.model('Property', propertySchema)
 const User = mongoose.model('User', userSchema)
 
 const verifyToken = (req: any, res: any, next: any) => {
-	const token = req.body.token
+	const token: string =
+		req.body.token || req.headers.authorization?.split('Bearer ')[1]
+	// console.log(token)
 	if (!token) {
 		return res.status(403).json({ message: 'Token required' })
 	}
 	try {
 		const decodedToken = jwt.verify(token, process.env.JWT_TOKEN_KEY as Secret)
+		console.log(decodedToken)
 		req.body.decodedToken = decodedToken
 		return next()
 	} catch (err) {
@@ -99,6 +102,16 @@ app.patch('/user/properties/new', verifyToken, async (req, res) => {
 			// console.log(err)
 			return res.status(400).json({ message: "Couldn't update user" })
 		})
+})
+
+app.get('/user/properties', verifyToken, async (req, res) => {
+	const user = await User.findById(req.body.decodedToken.id).populate(
+		'properties',
+	)
+	if (!user) {
+		return res.status(404).json({ message: 'User not found' })
+	}
+	return res.status(200).json({ properties: user?.properties })
 })
 
 app.post('/user/login', async (req, res) => {
