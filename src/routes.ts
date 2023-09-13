@@ -14,7 +14,7 @@ const User = mongoose.model('User', userSchema)
 const verifyToken = (req: any, res: any, next: any) => {
 	const token: string =
 		req.body.token || req.headers.authorization?.split('Bearer ')[1]
-	// console.log(token)
+	console.log(token)
 	if (!token) {
 		return res.status(403).json({ message: 'Token required' })
 	}
@@ -135,8 +135,20 @@ app.post('/user/login', async (req, res) => {
 })
 
 app.post('/user/register', async (req, res) => {
-	const { firstName, lastName, DNI, email, address, password, dob } = req.body
-	if (!(firstName && lastName && DNI && email && address && password && dob)) {
+	const { firstName, lastName, dni, email, address, password, dob, gender } =
+		req.body
+	if (
+		!(
+			firstName &&
+			lastName &&
+			dni &&
+			email &&
+			address &&
+			password &&
+			dob &&
+			gender
+		)
+	) {
 		return res.status(400).json({ message: 'Missing info in some inputs' })
 	}
 	const alreadyUser = await User.findOne({ email: email })
@@ -144,13 +156,14 @@ app.post('/user/register', async (req, res) => {
 		return res.status(409).json({ message: 'User already exists' })
 	}
 	let newUser = new User({
-		firstName: firstName,
-		lastName: lastName,
-		dni: DNI,
+		firstName,
+		lastName,
+		dni,
 		email: email.toLowerCase(),
-		address: address,
+		address,
 		password: await bcrypt.hash(password, 10),
-		dob: dob,
+		dob,
+		gender,
 		bankAccount: '',
 	})
 	await newUser
