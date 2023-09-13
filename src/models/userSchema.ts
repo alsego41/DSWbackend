@@ -8,6 +8,7 @@ export const userSchema = new mongoose.Schema({
 	address: { type: String, required: true },
 	password: { type: String, required: true },
 	dob: { type: String, required: true },
+	gender: { type: String, required: true },
 	bankAccount: String,
 	properties: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }],
 })
