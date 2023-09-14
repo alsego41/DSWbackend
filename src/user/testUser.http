@@ -1,0 +1,78 @@
+###
+GET http://localhost:3000
+
+### Find All Users
+GET http://localhost:3000/user
+
+### Find One User
+GET http://localhost:3000/user/64ed2c49f642fa68a08f2bd4
+
+### Create an user
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+    "firstName": "Beto",
+	"lastName": "Gonzalez",
+	"dni": 41231231,
+	"email": "beto2@gmail.com",
+	"address": "Newt 31",
+	"password": "beto",
+	"dob": "1998-19-06",
+	"gender": "male",
+	"bankAccount": "",
+	"properties": []
+}
+
+### Login an user
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "email": "beto@gmail.com",
+    "password": "beto"
+}
+
+### Update an user
+PATCH http://localhost:3000/user/edit
+Content-Type: application/json
+
+{
+    "firstName": "Beto",
+	"lastName": "Gonzalez",
+	"dni": 41231231,
+	"email": "beto2@gmail.com",
+	"address": "Newt 31",
+	"password": "beto",
+	"dob": "1998-19-06",
+	"gender": "male",
+	"bankAccount": "",
+	"properties": []
+}
+
+### Append new property to user
+PATCH http://localhost:3000/user/properties/new
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0ZTkxOWE1ODllYTc3ZTI4YzkyIiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5NDcxOTA3OSwiZXhwIjoxNjk0NzIwODc5fQ.SlC1xuAEZfkD2beU_Tov_Jtob1nGRmDK6YplDqDDa24",
+	"idProperty": "64f684bb6e1ff583f2c5f3b8"
+}
+
+
+### Retrieve user properties
+GET http://localhost:3000/user/properties
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4Il0sImlhdCI6MTY5NDcyMzAyNiwiZXhwIjoxNjk0NzI0ODI2fQ.j4K0mqAPLMqR_WVyUDhYI2KcexU5QvMret_Tv3Hvf1s
+
+###
+POST http://localhost:3000/user/verify HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4Il0sImlhdCI6MTY5NDcyMzAyNiwiZXhwIjoxNjk0NzI0ODI2fQ.j4K0mqAPLMqR_WVyUDhYI2KcexU5QvMret_Tv3Hvf1s"
+}
+
+###
+POST http://localhost:3000/user/verify HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4Il0sImlhdCI6MTY5NDcyMzAyNiwiZXhwIjoxNjk0NzI0ODI2fQ.j4K0mqAPLMqR_WVyUDhYI2KcexU5QvMret_Tv3Hvf1s

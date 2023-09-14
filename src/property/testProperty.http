@@ -1,0 +1,16 @@
+### Find All Properties
+GET http://localhost:3000/property
+
+### Find One Property
+GET http://localhost:3000/property/64f684e919a589ea77e28c92
+
+### Populate a Property
+GET http://localhost:3000/property/64f684e919a589ea77e28c92/user
+
+###
+POST http://localhost:3000/user/verify HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0ZTkxOWE1ODllYTc3ZTI4YzkyIiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5Mzk1Njk3NCwiZXhwIjoxNjkzOTU4Nzc0fQ.oQY7_09O7mb0nov8zkb3bRogs_XEx5L5cayZ9wRUuz4"
+}
