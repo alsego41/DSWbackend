@@ -5,11 +5,13 @@ import { userSchema } from './models/userSchema.js'
 import mongoose from 'mongoose'
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken'
 import 'dotenv/config'
+import { UserRepository } from './user/user.repository.js'
+import { IUser, UserModel } from './user/user.entity.js'
 
 const app = express()
 
 const Property = mongoose.model('Property', propertySchema)
-const User = mongoose.model('User', userSchema)
+// const User2 = mongoose.model('User', userSchema)
 
 const verifyToken = (req: any, res: any, next: any) => {
 	const token: string =
@@ -34,9 +36,26 @@ app.post('/user/verify', verifyToken, async (req, res) => {
 		payload: req.body.decodedToken,
 	})
 })
+const repo = new UserRepository()
+
+app.get('/user', async (req, res) => {
+	const users = await repo.findAll()
+	if (!users) {
+		return res.status(404).json({ message: 'No users found' })
+	}
+	return res.status(200).json(users)
+})
+
+app.get('/user/:id', async (req, res) => {
+	const user = await repo.findById({ _id: req.params.id })
+	if (!user) {
+		return res.status(404).json({ message: 'User not found' })
+	}
+	return res.status(200).json(user)
+})
 
 app.get('/property', async (req, res) => {
-	const allProperties = await Property.find().populate('user')
+	const allProperties = await Property.find()
 	// console.log(allProperties)
 	return res.status(200).json(allProperties)
 })
@@ -87,13 +106,11 @@ app.post('/property/new', verifyToken, async (req, res) => {
 })
 
 app.patch('/user/properties/new', verifyToken, async (req, res) => {
-	await User.findByIdAndUpdate(
-		req.body.decodedToken.id,
-		{
-			$push: { properties: req.body.idProperty },
-		},
-		{ new: true },
-	)
+	await repo
+		.updateOwnProperties({
+			_id: req.body.decodedToken.id,
+			body: { properties: req.body.idProperty },
+		})
 		.then((doc) => {
 			// console.log(doc)
 			return res.status(200).json({ message: 'User updated' })
@@ -105,9 +122,8 @@ app.patch('/user/properties/new', verifyToken, async (req, res) => {
 })
 
 app.get('/user/properties', verifyToken, async (req, res) => {
-	const user = await User.findById(req.body.decodedToken.id).populate(
-		'properties',
-	)
+	const user = await repo.findById({ _id: req.body.decodedToken.id })
+	console.log(user)
 	if (!user) {
 		return res.status(404).json({ message: 'User not found' })
 	}
@@ -116,11 +132,12 @@ app.get('/user/properties', verifyToken, async (req, res) => {
 
 app.post('/user/login', async (req, res) => {
 	const { email, password } = req.body
-	const user = await User.findOne({ email })
+	const user = await repo.findOne(email)
 	if (!user) {
 		return res.status(404).json({ message: 'User not found', status: false })
 	}
-	if (await bcrypt.compare(password, user?.password || '')) {
+	let isPwdValid = await bcrypt.compare(password, user?.password)
+	if (isPwdValid) {
 		const token = jwt.sign(
 			{ id: user?._id, properties: user?.properties },
 			process.env.JWT_TOKEN_KEY as Secret,
@@ -151,11 +168,11 @@ app.post('/user/register', async (req, res) => {
 	) {
 		return res.status(400).json({ message: 'Missing info in some inputs' })
 	}
-	const alreadyUser = await User.findOne({ email: email })
+	const alreadyUser = await repo.findOne(email)
 	if (alreadyUser) {
 		return res.status(409).json({ message: 'User already exists' })
 	}
-	let newUser = new User({
+	let newUser: IUser = {
 		firstName,
 		lastName,
 		dni,
@@ -165,14 +182,16 @@ app.post('/user/register', async (req, res) => {
 		dob,
 		gender,
 		bankAccount: '',
-	})
-	await newUser
-		.save()
+		properties: [],
+	}
+	await repo
+		.create(newUser)
 		.then((user) => {
-			console.log(`User ${user._id} created`)
+			console.log(user?._id)
 			return res.status(201).json({ message: 'User created' })
 		})
 		.catch((err) => {
+			console.log('create catch')
 			console.log(err._message)
 			return res.status(400).json({ message: err._message })
 		})
