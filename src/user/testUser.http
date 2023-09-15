@@ -62,6 +62,8 @@ Content-Type: application/json
 
 ### Retrieve user properties
 GET http://localhost:3000/user/properties
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5NDc0MjQ5MSwiZXhwIjoxNjk0NzQ0MjkxfQ.R3KrU3cXbjjdGj-GLmdrbE9D0Sz8lxhTuI_Ugz-8nKI
+
 
 ### Token Info
 POST http://localhost:3000/user/verify 
