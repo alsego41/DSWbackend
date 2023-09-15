@@ -14,12 +14,12 @@ export class UserRepository implements Repository<IUser> {
 			return null
 		}
 	}
-	public async findByIdAndPopulate(item: {
-		_id: string
-	}): Promise<UserDocument | null> {
+	public async populate(item: { _id: string }): Promise<UserDocument | null> {
 		try {
 			console.log(item._id)
-			const user = await UserModel.findById(item._id).exec()
+			const user = await UserModel.findById(item._id)
+				.populate('properties')
+				.exec()
 			return user
 		} catch (err) {
 			return null
@@ -39,20 +39,19 @@ export class UserRepository implements Repository<IUser> {
 	}
 	public async update(item: {
 		_id: String
-		body: {}
-		//
+		user: IUser
 	}): Promise<UserDocument | null> {
-		const user = await UserModel.findByIdAndUpdate(item._id, item.body)
+		const user = await UserModel.findByIdAndUpdate(item._id, item.user)
 		return user
 	}
 	public async updateOwnProperties(item: {
-		_id: String
-		body: { properties: string }
+		_id: string
+		idProperty: string
 	}): Promise<UserDocument | null> {
 		const user = await UserModel.findByIdAndUpdate(
 			item._id,
 			{
-				$push: { properties: item.body.properties },
+				$push: { properties: item.idProperty },
 			},
 			{ new: true },
 		)
