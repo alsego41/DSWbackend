@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import routes from './routes.js'
 import mongoose from 'mongoose'
@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
 	console.log(req.method)
 	console.log(req.originalUrl)
 	next()
@@ -18,8 +18,8 @@ app.use((req, res, next) => {
 
 app.use('/', routes)
 
-app.use((req, res) => {
-	res.status(404).send('404 - Not Found')
+app.use((req: Request, res: Response) => {
+	res.status(404).json({ message: 'Resource Not Found' })
 })
 
 app.listen(3000, () => {
