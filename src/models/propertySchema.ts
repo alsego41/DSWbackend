@@ -1,16 +1,34 @@
 import mongoose from 'mongoose'
+import { prop, getModelForClass } from "@typegoose/typegoose"
 
-export const propertySchema = new mongoose.Schema({
-	nameProperty: { type: String, required: true },
-	statusProperty: String,
-	photo: String,
-	address: { type: String, required: true },
-	zone: { type: String, required: true },
-	m2: { type: Number, required: true },
-	spaces: { type: Number, required: true },
-	roomQty: { type: Number, required: true },
-	bathQty: { type: Number, required: true },
-	backyard: Boolean,
-	grill: Boolean,
-	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-})
+
+class Property{
+	@prop()
+		nameProperty:string
+	@prop()
+	statusProperty:string
+	@prop()
+	photo:string
+	@prop()
+	address:string
+	@prop()
+	zone:string
+	@prop()
+	m2:number
+	@prop()
+	spaces:number
+	@prop()
+	roomQty:number
+	@prop()
+	bathQty:number
+	@prop()
+	Baclyard:boolean
+	@prop()
+	grill:boolean
+	@prop()
+	user:{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+	
+}
+
+const propertyModel = getModelForClass(Property)
+export default propertyModel
