@@ -4,8 +4,8 @@ import { SharedController } from '../shared/controller.js'
 
 export const propertyRouter = Router()
 
-propertyRouter.get('/', propertyController.findAll)
 propertyRouter.get('/:id', propertyController.findById)
+propertyRouter.get('/', propertyController.findAll)
 propertyRouter.post(
 	'/new',
 	SharedController.verifyToken,
