@@ -1,0 +1,50 @@
+### Find All Properties
+GET http://localhost:3000/property
+
+### Find One Property
+GET http://localhost:3000/property/6503d0148880588f3dedb171
+
+### Create a property
+POST http://localhost:3000/property/new
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5NDc0ODMzMSwiZXhwIjoxNjk0NzUwMTMxfQ.aCGoKjF5Qk9ffOtJj_z4CH_WqxHKdNiQDlEQu5dQIgM
+
+{
+    "nameProperty": "Test casa 1",
+	"statusProperty": "",
+	"photo": "",
+	"address": "Buenos Aires 123",
+	"zone": "Centro",
+	"m2": 85,
+	"spaces": 4,
+	"roomQty": 3,
+	"bathQty": 2,
+	"backyard": false,
+	"grill": false,
+	"user": ""
+}
+
+### Delete a property
+POST http://localhost:3000/property/delete/6503ceb256e0647a7b95eaa2
+
+{}
+
+### Delete a property
+PATCH http://localhost:3000/property/edit/6503d0148880588f3dedb171
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5NDc0ODMzMSwiZXhwIjoxNjk0NzUwMTMxfQ.aCGoKjF5Qk9ffOtJj_z4CH_WqxHKdNiQDlEQu5dQIgM
+
+{
+    "nameProperty": "Test casa 1223",
+	"statusProperty": "",
+	"photo": "",
+	"address": "Buenos Aires 123",
+	"zone": "Centro",
+	"m2": 85,
+	"spaces": 4,
+	"roomQty": 3,
+	"bathQty": 2,
+	"backyard": false,
+	"grill": false,
+	"user": ""
+}
