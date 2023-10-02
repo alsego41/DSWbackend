@@ -3,6 +3,7 @@ import { Schema, Document, model } from 'mongoose'
 export interface IProperty {
 	nameProperty: String
 	statusProperty: String
+	city: String
 	photo: String
 	address: String
 	zone: String
@@ -12,13 +13,16 @@ export interface IProperty {
 	bathQty: Number
 	backyard: Boolean
 	grill: Boolean
+	price: Number
 	user: String
 }
 
 export type PropertyDocument = IProperty & Document
+
 export const propertySchema = new Schema({
 	nameProperty: { type: String, required: true },
 	statusProperty: String,
+	city: { type: Schema.Types.ObjectId, ref: 'City' },
 	photo: String,
 	address: { type: String, required: true },
 	zone: { type: String, required: true },

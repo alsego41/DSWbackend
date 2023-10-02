@@ -18,6 +18,10 @@ async function findById(req: Request, res: Response) {
 }
 
 async function create(req: Request, res: Response) {
+	let province = req.body.province
+	// check province
+	let city = req.body.city
+	// check cityrepo
 	let newProperty: IProperty = {
 		nameProperty: req.body.nameProperty,
 		statusProperty: 'Disponible',
@@ -31,6 +35,8 @@ async function create(req: Request, res: Response) {
 		backyard: req.body.backyard,
 		grill: req.body.grill,
 		user: req.body.decodedToken.id,
+		city: city,
+		price: req.body.price,
 	}
 	await repository
 		.create(newProperty)
