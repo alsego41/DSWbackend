@@ -11,7 +11,7 @@ provinceRouter.post(
 	// SharedController.verifyToken,
 	provinceController.create,
 )
-provinceRouter.post('/delete/:id', provinceController.remove)
+provinceRouter.delete('/delete/:id', provinceController.remove)
 provinceRouter.patch(
 	'/edit/:id',
 	SharedController.verifyToken,

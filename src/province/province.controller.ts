@@ -39,7 +39,7 @@ async function remove(req: Request, res: Response) {
 	const _id = req.params.id
 	console.log(_id)
 	await propRepository.remove({ _id })
-	return res.status(200).json({ message: 'province deleted' })
+	return res.status(200).json({ message: 'Province deleted' })
 }
 
 async function update(req: Request, res: Response) {
