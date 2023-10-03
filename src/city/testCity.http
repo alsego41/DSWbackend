@@ -1,0 +1,14 @@
+###
+GET http://localhost:3000/city
+
+###
+POST http://localhost:3000/city/new
+Content-Type: application/json
+
+{
+    "nameCity": "Rosario",
+    "province": "651b43913ecb3b72088db1e1"
+}
+
+###
+DELETE http://localhost:3000/city/delete/651b41d98d3dca581114c29a
