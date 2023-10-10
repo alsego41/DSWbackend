@@ -112,15 +112,15 @@ async function updateOwnProperties(req: Request, res: Response) {
 	await repository
 		.updateOwnProperties({
 			_id: req.body.decodedToken.id,
-			idProperty: req.body.idProperty,
+			idProperty: req.body.property._id,
 		})
 		.then((doc) => {
 			console.log(doc)
-			return res.status(200).json({ message: 'User updated' })
+			res.locals.user = doc
 		})
 		.catch((err) => {
 			console.log(err)
-			return res.status(400).json({ message: "Couldn't update user" })
+			res.locals.err = { message: "Couldn't update user", statusCode: 400 }
 		})
 }
 
