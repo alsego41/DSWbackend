@@ -8,6 +8,12 @@ export class ProvinceRepository implements Repository<ProvinceClass> {
 		return provinces
 	}
 
+	public async findOne(id: string): Promise<any> {
+		const prov = await ProvinceModel.findOne({ idProvince: id }).exec()
+		// console.log(prov)
+		return prov
+	}
+
 	public async findById(item: {
 		_id: String
 	}): Promise<DocumentType<ProvinceClass> | null> {
@@ -22,7 +28,7 @@ export class ProvinceRepository implements Repository<ProvinceClass> {
 	public async create(
 		item: ProvinceClass,
 	): Promise<DocumentType<ProvinceClass> | null> {
-		console.log(item)
+		// console.log(item)
 		const provinceDoc = await ProvinceModel.create(item)
 		// const newprovince = new ProvinceModel(item)
 		return await provinceDoc.save()
