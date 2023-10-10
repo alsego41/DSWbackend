@@ -6,9 +6,9 @@ POST http://localhost:3000/city/new
 Content-Type: application/json
 
 {
-    "nameCity": "Rosario",
-    "province": "651b43913ecb3b72088db1e1"
+    "city": "Rosario",
+    "provinceId": "651b444b0293a42cee704cff"
 }
 
 ###
-DELETE http://localhost:3000/city/delete/651b41d98d3dca581114c29a
+DELETE http://localhost:3000/city/delete/651b6031feffd971806bc230
