@@ -2,15 +2,32 @@ import { Request, Response, NextFunction } from 'express'
 import { ProvinceRepository } from '../province/province.repository.js'
 import { ProvinceClass, ProvinceModel } from '../province/province.entity.js'
 
-const propRepository = new ProvinceRepository()
+const provRepository = new ProvinceRepository()
 
 async function findAll(req: Request, res: Response) {
-	const allProvinces = await propRepository.findAll()
+	const allProvinces = await provRepository.findAll()
 	return res.status(200).json(allProvinces)
 }
 
+async function findOrCreate(req: Request, res: Response) {
+	const prov = await provRepository.findOne(req.body.id)
+	if (!prov) {
+		// return res.status(404).json({ message: 'province not found' })
+		const newProv = await provRepository.create({
+			nameProvince: req.body.nombre,
+			idProvince: req.body.id,
+		})
+		res.locals.prov = prov
+		return res
+			.status(200)
+			.json({ province: newProv, message: 'Province not found, created' })
+	}
+	res.locals.prov = prov
+	return res.status(200).json({ province: prov, message: 'Province found' })
+}
+
 async function findById(req: Request, res: Response) {
-	const province = await propRepository.findById({ _id: req.params.id })
+	const province = await provRepository.findById({ _id: req.params.id })
 	if (!province) {
 		return res.status(404).json({ message: 'province not found' })
 	}
@@ -21,7 +38,7 @@ async function create(req: Request, res: Response) {
 	let newProvince: ProvinceClass = {
 		nameProvince: req.body.province,
 	}
-	await propRepository
+	await provRepository
 		.create(newProvince)
 		.then((province) => {
 			console.log(`province ${province?._id} created`)
@@ -38,12 +55,12 @@ async function create(req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
 	const _id = req.params.id
 	console.log(_id)
-	await propRepository.remove({ _id })
+	await provRepository.remove({ _id })
 	return res.status(200).json({ message: 'Province deleted' })
 }
 
 async function update(req: Request, res: Response) {
-	await propRepository
+	await provRepository
 		.update({
 			_id: req.body.decodedToken.id,
 			province: req.body.province,
@@ -61,6 +78,7 @@ async function update(req: Request, res: Response) {
 export const provinceController = {
 	findAll,
 	findById,
+	findOrCreate,
 	create,
 	remove,
 	update,
