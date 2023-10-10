@@ -25,5 +25,3 @@ userRouter.patch(
 	userController.updateOwnProperties,
 )
 userRouter.patch('/edit', SharedController.verifyToken, userController.update)
-// Fixear esto, se va a la ruta de /:id cuando se hace llamada a /properties
-// Unica fix de momento, precedencia?
