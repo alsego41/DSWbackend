@@ -8,7 +8,7 @@ provinceRouter.get('/:id', provinceController.findById)
 provinceRouter.get('/', provinceController.findAll)
 provinceRouter.post(
 	'/new',
-	// SharedController.verifyToken,
+	SharedController.verifyToken,
 	provinceController.create,
 )
 provinceRouter.delete('/delete/:id', provinceController.remove)
