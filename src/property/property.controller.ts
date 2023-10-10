@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction} from 'express'
 import { PropertyRepository } from './property.repository.js'
 import { IProperty } from './property.entity.js'
 
@@ -17,7 +17,27 @@ async function findById(req: Request, res: Response) {
 	return res.status(200).json(property)
 }
 
-async function create(req: Request, res: Response) {
+function sanitizePropertyInput(req: Request, res: Response, next:NextFunction){
+    req.body.sanitizedInput = {
+		nameProperty: req.body.nameProperty,
+		statusProperty: 'Disponible',
+		photo: './assets/testcasa.jpg',
+		address: req.body.address,
+		zone: req.body.zone,
+		m2: req.body.m2,
+		spaces: req.body.spaces,
+		roomQty: req.body.roomQty,
+		bathQty: req.body.bathQty,
+		backyard: req.body.backyard,
+		grill: req.body.grill,
+		user: req.body.decodedToken.id,
+	}
+	// more checks
+
+	next()
+}
+
+async function create (req: Request, res: Response) {
 	let newProperty: IProperty = {
 		nameProperty: req.body.nameProperty,
 		statusProperty: 'Disponible',
@@ -74,4 +94,5 @@ export const propertyController = {
 	create,
 	remove,
 	update,
+	sanitizePropertyInput,
 }

@@ -9,6 +9,7 @@ propertyRouter.get('/', propertyController.findAll)
 propertyRouter.post(
 	'/new',
 	SharedController.verifyToken,
+	propertyController.sanitizePropertyInput,
 	propertyController.create,
 )
 propertyRouter.post('/delete/:id', propertyController.remove)

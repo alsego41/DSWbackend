@@ -25,6 +25,25 @@ async function populate(req: Request, res: Response) {
 	return res.status(200).json(user)
 }
 
+async function sanitizeUserInput(req: Request, res: Response, next:NextFunction) {
+	const { firstName, lastName, dni, email, address, password, dob, gender } =
+		req.body
+    req.body.sanitizedInput = {
+		firstName,
+		lastName,
+		dni,
+		email: email.toLowerCase(),
+		address,
+		password: await bcrypt.hash(password, 10),
+		dob,
+		gender,
+		bankAccount: '',
+		properties: [],
+	}
+
+	next()
+}
+
 async function findById(req: Request, res: Response) {
 	console.log(req.body)
 	const user = await repository.findById({ _id: req.params.id })
@@ -149,4 +168,5 @@ export const userController = {
 	remove,
 	updateOwnProperties,
 	update,
+	sanitizeUserInput,
 }
