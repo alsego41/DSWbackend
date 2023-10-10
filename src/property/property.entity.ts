@@ -32,6 +32,7 @@ export const propertySchema = new Schema({
 	bathQty: { type: Number, required: true },
 	backyard: Boolean,
 	grill: Boolean,
+	price: Number,
 	user: { type: Schema.Types.ObjectId, ref: 'User' },
 })
 
