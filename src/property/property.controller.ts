@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { PropertyRepository } from './property.repository.js'
 import { IProperty } from './property.entity.js'
+import { ProvinceRepository } from '../province/province.repository.js'
 
 const repository = new PropertyRepository()
 
@@ -18,36 +19,31 @@ async function findById(req: Request, res: Response) {
 }
 
 async function create(req: Request, res: Response) {
-	let province = req.body.province
-	// check province
-	let city = req.body.city
-	// check cityrepo
+	let { property, city, decodedToken } = req.body
 	let newProperty: IProperty = {
-		nameProperty: req.body.nameProperty,
-		statusProperty: 'Disponible',
-		photo: './assets/testcasa.jpg',
-		address: req.body.address,
-		zone: req.body.zone,
-		m2: req.body.m2,
-		spaces: req.body.spaces,
-		roomQty: req.body.roomQty,
-		bathQty: req.body.bathQty,
-		backyard: req.body.backyard,
-		grill: req.body.grill,
-		user: req.body.decodedToken.id,
-		city: city,
-		price: req.body.price,
+		nameProperty: property.nameProperty,
+		statusProperty: property.statusProperty,
+		city: city._id,
+		photo: property.photo,
+		address: property.address,
+		zone: property.zone,
+		m2: property.m2,
+		spaces: property.spaces,
+		roomQty: property.roomQty,
+		bathQty: property.bathQty,
+		backyard: property.backyard,
+		grill: property.grill,
+		price: property.price,
+		user: decodedToken.id,
 	}
 	await repository
 		.create(newProperty)
 		.then((property) => {
-			// console.log(property)
 			console.log(`Property ${property?._id} created`)
-			return res.status(201).json(property)
+			res.locals.property = property
 		})
 		.catch((err) => {
-			console.log(err._message)
-			return res.status(400).json({ message: err._message })
+			res.locals.err = { message: err._message, statusCode: 400 }
 		})
 }
 
