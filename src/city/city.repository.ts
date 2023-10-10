@@ -4,8 +4,21 @@ import { CityClass, CityModel } from './city.entity.js'
 
 export class CityRepository implements Repository<CityClass> {
 	public async findAll(): Promise<DocumentType<CityClass>[]> {
-		const cities = await CityModel.find().populate('province').exec()
+		const cities = await CityModel.find().exec()
 		return cities
+	}
+
+	public async findOne(city: {
+		id: string
+		nombre: string
+		departamento: string
+	}): Promise<any> {
+		const cityDoc = await CityModel.findOne({
+			idCity: city.id,
+			nameCity: city.nombre,
+			nameDepartamento: city.departamento,
+		})
+		return cityDoc
 	}
 
 	public async findById(item: {
@@ -22,10 +35,8 @@ export class CityRepository implements Repository<CityClass> {
 	public async create(
 		item: CityClass,
 	): Promise<DocumentType<CityClass> | null> {
-		console.log(item)
 		const cityDoc = await CityModel.create(item)
-		// const newcity = new CityModel(item)
-		return await cityDoc.save()
+		return cityDoc
 	}
 
 	// Fixear
