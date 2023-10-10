@@ -5,6 +5,6 @@ export const sharedRouter = Router()
 
 sharedRouter.post(
 	'/newprop',
-	// SharedController.verifyToken,
+	SharedController.verifyToken,
 	SharedController.createProp,
 )
