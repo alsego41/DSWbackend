@@ -24,8 +24,8 @@ export class PropertyRepository implements Repository<IProperty> {
 
 	public async create(item: IProperty): Promise<PropertyDocument | null> {
 		console.log(item)
-		const newProperty = new PropertyModel(item)
-		return await newProperty.save()
+		const newProperty = PropertyModel.create(item)
+		return newProperty
 	}
 
 	// Fixear
