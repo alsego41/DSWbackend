@@ -10,20 +10,16 @@ async function findAll(req: Request, res: Response) {
 }
 
 async function findOrCreate(req: Request, res: Response) {
-	const prov = await provRepository.findOne(req.body.id)
+	const prov = await provRepository.findOne(req.body.province.id)
 	if (!prov) {
-		// return res.status(404).json({ message: 'province not found' })
 		const newProv = await provRepository.create({
-			nameProvince: req.body.nombre,
-			idProvince: req.body.id,
+			nameProvince: req.body.province.nombre,
+			idProvince: req.body.province.id,
 		})
+		res.locals.prov = newProv
+	} else {
 		res.locals.prov = prov
-		return res
-			.status(200)
-			.json({ province: newProv, message: 'Province not found, created' })
 	}
-	res.locals.prov = prov
-	return res.status(200).json({ province: prov, message: 'Province found' })
 }
 
 async function findById(req: Request, res: Response) {
