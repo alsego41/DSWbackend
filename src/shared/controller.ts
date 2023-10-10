@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, { Secret } from 'jsonwebtoken'
+import { provinceController } from '../province/province.controller.js'
 
 async function verifyToken(req: Request, res: Response, next: NextFunction) {
 	const token: string =
@@ -25,7 +26,13 @@ async function testTokenVerification(req: Request, res: Response) {
 	})
 }
 
+async function createProp(req: Request, res: Response) {
+	const province = await provinceController.findOrCreate(req, res)
+	console.log(res.locals.prov)
+}
+
 export const SharedController = {
 	verifyToken,
 	testTokenVerification,
+	createProp,
 }
