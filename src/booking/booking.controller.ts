@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { BookingRepository } from './booking.repository.js'
 import { BookingClass, BookingModel } from './booking.entity.js'
 import { ProvinceRepository } from '../province/province.repository.js'
+import mongoose from 'mongoose'
 
 const repository = new BookingRepository()
 
@@ -19,32 +20,30 @@ async function findById(req: Request, res: Response) {
 }
 
 async function create(req: Request, res: Response) {
-	// let { property, city, decodedToken } = req.body
-	// let newProperty: IProperty = {
-	// 	nameProperty: property.nameProperty,
-	// 	statusProperty: property.statusProperty,
-	// 	city: city._id,
-	// 	photo: property.photo,
-	// 	address: property.address,
-	// 	zone: property.zone,
-	// 	m2: property.m2,
-	// 	spaces: property.spaces,
-	// 	roomQty: property.roomQty,
-	// 	bathQty: property.bathQty,
-	// 	backyard: property.backyard,
-	// 	grill: property.grill,
-	// 	price: property.price,
-	// 	user: decodedToken.id,
-	// }
-	// await repository
-	// 	.create(newProperty)
-	// 	.then((property) => {
-	// 		console.log(`Property ${property?._id} created`)
-	// 		res.locals.property = property
-	// 	})
-	// 	.catch((err) => {
-	// 		res.locals.err = { message: err._message, statusCode: 400 }
-	// 	})
+	const session = await mongoose.startSession()
+	session.startTransaction()
+	const { booking } = req.body
+	try {
+		const options = { session }
+		const booking1: BookingClass = {
+			status: booking.status,
+			checkIn: new Date(booking.checkIn),
+			checkOut: new Date(booking.checkOut),
+			totalPrice: booking.totalPrice,
+			owner: booking.owner,
+			guest: booking.guest,
+			property: booking.property,
+		}
+		await BookingModel.create(booking1)
+		await session.commitTransaction()
+		return res.status(200).json({ booking1 })
+	} catch (error) {
+		await session.abortTransaction()
+		console.error('Transaction aborted. Error:', error)
+		return res.status(400).json({ message: 'Transaction aborted' })
+	} finally {
+		session.endSession()
+	}
 }
 
 async function remove(req: Request, res: Response) {
