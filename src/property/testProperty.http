@@ -49,3 +49,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5Z
 	"grill": false,
 	"user": ""
 }
+
+###
+POST http://localhost:3000/property/find
+Content-Type: application/json
+
+{
+	"city": "65260a750790c96f82b4cd43"
+}

@@ -18,6 +18,11 @@ async function findById(req: Request, res: Response) {
 	return res.status(200).json(property)
 }
 
+async function findByCity(req: Request, res: Response) {
+	const properties = await repository.findByCity({ city: req.body.city })
+	return res.status(200).json(properties)
+}
+
 async function create(req: Request, res: Response) {
 	let { property, city, decodedToken } = req.body
 	let newProperty: IProperty = {
@@ -73,6 +78,7 @@ async function update(req: Request, res: Response) {
 export const propertyController = {
 	findAll,
 	findById,
+	findByCity,
 	create,
 	remove,
 	update,

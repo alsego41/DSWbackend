@@ -1,3 +1,4 @@
+import { mongoose } from '@typegoose/typegoose'
 import { Repository } from '../shared/repository'
 import {
 	IProperty,
@@ -20,6 +21,20 @@ export class PropertyRepository implements Repository<IProperty> {
 		} catch (err) {
 			return null
 		}
+	}
+
+	public async findByCity(item: {
+		city: string
+	}): Promise<PropertyDocument[] | null> {
+		const cityId = new mongoose.Types.ObjectId(item.city)
+		console.log(cityId)
+		const properties = await PropertyModel.find({
+			city: cityId,
+			statusProperty: 'Disponible',
+		})
+			.select('_id')
+			.exec()
+		return properties
 	}
 
 	public async create(item: IProperty): Promise<PropertyDocument | null> {
