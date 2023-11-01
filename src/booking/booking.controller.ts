@@ -19,12 +19,24 @@ async function findById(req: Request, res: Response) {
 	return res.status(200).json(booking)
 }
 
+async function findDateCollisions(req: Request, res: Response) {
+	const { checkInExp, checkOutExp } = req.body
+	const dCheckIn = new Date(checkInExp)
+	const dCheckOut = new Date(checkOutExp)
+	console.log(dCheckIn, dCheckOut)
+	const bookings = await repository.findDateCollisions({
+		checkInExp: dCheckIn,
+		checkOutExp: dCheckOut,
+	})
+	return res.status(200).json({ bookingsFound: bookings })
+}
+
 async function create(req: Request, res: Response) {
 	const session = await mongoose.startSession()
 	session.startTransaction()
 	const { booking } = req.body
 	try {
-		const options = { session }
+		// const options = { session }
 		const booking1: BookingClass = {
 			status: booking.status,
 			checkIn: new Date(booking.checkIn),
@@ -72,6 +84,7 @@ async function update(req: Request, res: Response) {
 export const bookingController = {
 	findAll,
 	findById,
+	findDateCollisions,
 	create,
 	remove,
 	update,

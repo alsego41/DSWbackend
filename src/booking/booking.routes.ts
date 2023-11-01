@@ -7,8 +7,13 @@ export const bookingRouter = Router()
 bookingRouter.get('/:id', bookingController.findById)
 bookingRouter.get('/', bookingController.findAll)
 bookingRouter.post(
+	'/checkAvailability',
+	// SharedController.verifyToken,
+	bookingController.findDateCollisions,
+)
+bookingRouter.post(
 	'/new',
-	SharedController.verifyToken,
+	// SharedController.verifyToken,
 	bookingController.create,
 )
 bookingRouter.post('/delete/:id', bookingController.remove)
