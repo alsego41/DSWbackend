@@ -9,8 +9,15 @@ async function findAll(req: Request, res: Response) {
 	return res.status(200).json(allProvinces)
 }
 
+async function findOne(req: Request, res: Response) {
+	const provinces = await provRepository.findOne({
+		name: req.body.province.name,
+	})
+	return provinces
+}
+
 async function findOrCreate(req: Request, res: Response) {
-	const prov = await provRepository.findOne(req.body.province.id)
+	const prov = await provRepository.findById({ _id: req.body.province.id })
 	if (!prov) {
 		const newProv = await provRepository.create({
 			nameProvince: req.body.province.nombre,
@@ -74,6 +81,7 @@ async function update(req: Request, res: Response) {
 export const provinceController = {
 	findAll,
 	findById,
+	findOne,
 	findOrCreate,
 	create,
 	remove,
