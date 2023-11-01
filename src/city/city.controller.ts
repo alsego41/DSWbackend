@@ -10,6 +10,15 @@ async function findAll(req: Request, res: Response) {
 	return res.status(200).json(allcities)
 }
 
+async function findByName(req: Request, res: Response) {
+	const city = await cityRepository.findByName({
+		nombre: req.body.city.nombre,
+		departamento: req.body.city.departamento,
+		province: req.body.city.province,
+	})
+	return city
+}
+
 async function findOrCreate(req: Request, res: Response) {
 	const city = await cityRepository.findOne({
 		id: req.body.city.id,
@@ -82,6 +91,7 @@ async function update(req: Request, res: Response) {
 export const cityController = {
 	findAll,
 	findById,
+	findByName,
 	findOrCreate,
 	create,
 	remove,

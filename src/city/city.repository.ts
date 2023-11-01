@@ -21,6 +21,19 @@ export class CityRepository implements Repository<CityClass> {
 		return cityDoc
 	}
 
+	public async findByName(city: {
+		nombre: string
+		departamento: string
+		province: string
+	}): Promise<any> {
+		const cityDoc = await CityModel.findOne({
+			nameCity: city.nombre,
+			nameDepartamento: city.departamento,
+			province: city.province,
+		})
+		return cityDoc
+	}
+
 	public async findById(item: {
 		_id: String
 	}): Promise<DocumentType<CityClass> | null> {

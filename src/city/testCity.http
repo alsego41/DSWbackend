@@ -2,6 +2,9 @@
 GET http://localhost:3000/city
 
 ###
+GET http://localhost:3000/city/65260c000790c96f82b4cd6c
+
+###
 POST http://localhost:3000/city/new
 Content-Type: application/json
 
