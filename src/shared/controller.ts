@@ -4,6 +4,8 @@ import { provinceController } from '../province/province.controller.js'
 import { cityController } from '../city/city.controller.js'
 import { propertyController } from '../property/property.controller.js'
 import { userController } from '../user/user.controller.js'
+import { bookingController } from '../booking/booking.controller.js'
+import { mongoose } from '@typegoose/typegoose'
 
 async function verifyToken(req: Request, res: Response, next: NextFunction) {
 	const token: string =
@@ -51,8 +53,49 @@ async function createProp(req: Request, res: Response) {
 	}
 }
 
+async function availPropertiesByDates(req: Request, res: Response) {
+	// const session = await mongoose.startSession()
+	// session.startTransaction()
+	// Buscar provincia por nombre
+	const province = await provinceController.findOne(req, res)
+	// console.log(province._id.toHexString())
+	req.body.city.province = province._id.toHexString()
+	// Buscar ciudad por nombre
+	const city = await cityController.findByName(req, res)
+	console.log(city)
+	req.body.city.id = city._id
+	// Buscar propiedades por ciudad
+	const properties = await propertyController.findByCity(req, res)
+	console.log(properties)
+	return res.status(200).json({ province, city, properties })
+	// console.log(req.body)
+	// const { booking } = req.body
+	// try {
+	// 	// const options = { session }
+	// 	const booking1: BookingClass = {
+	// 		status: booking.status,
+	// 		checkIn: new Date(booking.checkIn),
+	// 		checkOut: new Date(booking.checkOut),
+	// 		totalPrice: booking.totalPrice,
+	// 		owner: booking.owner,
+	// 		guest: booking.guest,
+	// 		property: booking.property,
+	// 	}
+	// 	await BookingModel.create(booking1)
+	// 	await session.commitTransaction()
+	// 	return res.status(200).json({ booking1 })
+	// } catch (error) {
+	// 	await session.abortTransaction()
+	// 	console.error('Transaction aborted. Error:', error)
+	// 	return res.status(400).json({ message: 'Transaction aborted' })
+	// } finally {
+	// 	session.endSession()
+	// }
+}
+
 export const SharedController = {
 	verifyToken,
 	testTokenVerification,
 	createProp,
+	availPropertiesByDates,
 }

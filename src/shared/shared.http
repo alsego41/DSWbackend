@@ -1,0 +1,13 @@
+###
+POST http://localhost:3000/sh/availProps
+Content-Type: application/json
+
+{
+    "city": {
+        "nombre": "ARROYO VERDE",
+        "departamento": "Biedma"
+    },
+    "province": {
+        "name": "Chubut"
+    }
+}

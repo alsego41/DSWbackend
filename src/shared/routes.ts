@@ -8,3 +8,5 @@ sharedRouter.post(
 	SharedController.verifyToken,
 	SharedController.createProp,
 )
+
+sharedRouter.post('/availProps', SharedController.availPropertiesByDates)
