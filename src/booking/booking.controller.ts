@@ -20,15 +20,17 @@ async function findById(req: Request, res: Response) {
 }
 
 async function findDateCollisions(req: Request, res: Response) {
-	const { checkInExp, checkOutExp } = req.body
+	const { checkInExp, checkOutExp, propertyId } = req.body.booking
 	const dCheckIn = new Date(checkInExp)
 	const dCheckOut = new Date(checkOutExp)
-	console.log(dCheckIn, dCheckOut)
+	// console.log(dCheckIn, dCheckOut)
 	const bookings = await repository.findDateCollisions({
 		checkInExp: dCheckIn,
 		checkOutExp: dCheckOut,
+		propertyId,
 	})
-	return res.status(200).json({ bookingsFound: bookings })
+	// return res.status(200).json({ bookingsFound: bookings })
+	return bookings
 }
 
 async function create(req: Request, res: Response) {
