@@ -23,9 +23,13 @@ export class BookingRepository implements Repository<BookingClass> {
 	public async findDateCollisions(item: {
 		checkInExp: Date
 		checkOutExp: Date
-	}): Promise<number | null> {
-		console.log(typeof item.checkInExp)
-		console.log(item.checkInExp)
+		propertyId: string
+	}): Promise<boolean | null> {
+		// console.log(typeof item.checkInExp)
+		// console.log(item.checkInExp)
+		console.log('Id de la propiedad')
+		console.log(item.propertyId)
+		console.log('Checkeando disponibilidad en el periodo dado')
 		const bookings = await BookingModel.find({
 			$or: [
 				{
@@ -41,9 +45,14 @@ export class BookingRepository implements Repository<BookingClass> {
 					],
 				},
 			],
+			property: item.propertyId,
 		}).exec()
-		console.log(bookings.length)
-		return bookings.length
+		let isAvailable: boolean
+		// console.log(bookings)
+		bookings.length === 0 ? (isAvailable = true) : (isAvailable = false)
+		// console.log(bookings.length)
+		console.log(isAvailable)
+		return isAvailable
 	}
 
 	public async create(
