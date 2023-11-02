@@ -7,9 +7,9 @@ Content-Type: application/json
     "checkIn": "2023-05-03",
     "checkOut": "2023-05-18",
     "totalPrice": 123450,
-    "owner": "64ed2c49f642fa68a08f2bd4",
+    "owner": "652609400790c96f82b4cd32",
     "guest": "64fcfe88e2b0ebef1862e040",
-    "property": "6525cf50e1427dc911b0f1dd"}
+    "property": "65260c090790c96f82b4cd7d"}
 }
 
 ###
@@ -20,7 +20,8 @@ POST http://localhost:3000/booking/checkAvailability
 Content-Type: application/json
 
 {
-    "checkInExp": "2023-04-03",
-    "checkOutExp": "2023-05-01",
-    "property": "6525cf50e1427dc911b0f1dd"
+    "booking" : {
+    "checkInExp": "2023-05-19",
+    "checkOutExp": "2023-05-19",
+    "propertyId": "6525cf50e1427dc911b0f1dd"}
 }

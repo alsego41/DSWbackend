@@ -9,5 +9,9 @@ Content-Type: application/json
     },
     "province": {
         "name": "Chubut"
+    },
+    "booking": {
+        "checkInExp": "2023-05-01",
+        "checkOutExp": "2023-06-01"
     }
 }
