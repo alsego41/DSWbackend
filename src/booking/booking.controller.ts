@@ -19,6 +19,13 @@ async function findById(req: Request, res: Response) {
 	return res.status(200).json(booking)
 }
 
+async function findByOwner(req: Request, res: Response) {
+	const bookings = await repository.findByOwner({
+		owner: req.body.decodedToken.id,
+	})
+	return res.status(200).json(bookings)
+}
+
 async function findDateCollisions(req: Request, res: Response) {
 	const { checkInExp, checkOutExp, propertyId } = req.body.booking
 	const dCheckIn = new Date(checkInExp)
@@ -86,6 +93,7 @@ async function update(req: Request, res: Response) {
 export const bookingController = {
 	findAll,
 	findById,
+	findByOwner,
 	findDateCollisions,
 	create,
 	remove,

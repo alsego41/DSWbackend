@@ -25,11 +25,6 @@ export class BookingRepository implements Repository<BookingClass> {
 		checkOutExp: Date
 		propertyId: string
 	}): Promise<boolean | null> {
-		// console.log(typeof item.checkInExp)
-		// console.log(item.checkInExp)
-		console.log('Id de la propiedad')
-		console.log(item.propertyId)
-		console.log('Checkeando disponibilidad en el periodo dado')
 		const bookings = await BookingModel.find({
 			$or: [
 				{
@@ -48,11 +43,17 @@ export class BookingRepository implements Repository<BookingClass> {
 			property: item.propertyId,
 		}).exec()
 		let isAvailable: boolean
-		// console.log(bookings)
 		bookings.length === 0 ? (isAvailable = true) : (isAvailable = false)
-		// console.log(bookings.length)
-		console.log(isAvailable)
 		return isAvailable
+	}
+
+	public async findByOwner(item: {
+		owner: string
+	}): Promise<DocumentType<BookingClass>[] | undefined> {
+		const bookings = BookingModel.find({ owner: item.owner })
+			// .populate(['guest', 'property'])
+			.exec()
+		return bookings
 	}
 
 	public async create(

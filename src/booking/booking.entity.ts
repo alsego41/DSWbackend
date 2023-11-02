@@ -16,13 +16,13 @@ export class BookingClass {
 	@prop({ required: true })
 	public totalPrice?: Number
 
-	@prop({ required: false, ref: () => UserModel })
+	@prop({ required: true, ref: () => UserModel })
 	public owner?: Ref<UserDocument>
 
-	@prop({ required: false, ref: () => UserModel })
+	@prop({ required: true, ref: () => UserModel })
 	public guest?: Ref<UserDocument>
 
-	@prop({ required: false, ref: () => PropertyModel })
+	@prop({ required: true, ref: () => PropertyModel })
 	public property?: Ref<PropertyDocument>
 }
 
