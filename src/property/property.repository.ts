@@ -25,15 +25,14 @@ export class PropertyRepository implements Repository<IProperty> {
 
 	public async findByCity(item: {
 		city: string
-	}): Promise<PropertyDocument[] | null> {
+	}): Promise<PropertyDocument[] | undefined> {
 		const cityId = new mongoose.Types.ObjectId(item.city)
-		console.log(cityId)
+		// console.log(cityId)
 		const properties = await PropertyModel.find({
-			city: cityId,
+			city: item.city,
 			statusProperty: 'Disponible',
-		})
-			.select('_id')
-			.exec()
+		}).exec()
+		// .select('_id')
 		return properties
 	}
 

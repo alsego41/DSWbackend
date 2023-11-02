@@ -19,8 +19,11 @@ async function findById(req: Request, res: Response) {
 }
 
 async function findByCity(req: Request, res: Response) {
-	const properties = await repository.findByCity({ city: req.body.city })
-	return res.status(200).json(properties)
+	console.log(req.body.city.id)
+	const properties = await repository.findByCity({ city: req.body.city.id })
+	// return res.status(200).json(properties)
+	// console.log(properties)
+	return properties
 }
 
 async function create(req: Request, res: Response) {
