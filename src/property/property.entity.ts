@@ -1,5 +1,5 @@
 import { Ref, getModelForClass, index, prop } from '@typegoose/typegoose'
-import { UserDocument, UserModel } from '../user/user.entity.js'
+import { UserClass, UserModel } from '../user/user.entity.js'
 import { CityClass, CityModel } from '../city/city.entity.js'
 
 export class PropertyClass {
@@ -43,7 +43,7 @@ export class PropertyClass {
 	public price?: Number
 
 	@prop({ required: true, ref: () => UserModel })
-	public user?: Ref<UserDocument>
+	public user?: Ref<UserClass>
 }
 
 export const PropertyModel = getModelForClass(PropertyClass)
