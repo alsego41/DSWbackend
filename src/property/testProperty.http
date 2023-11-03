@@ -1,6 +1,10 @@
 ### Find All Properties
 GET http://localhost:3000/property
 
+### Find All Properties from an owner
+GET http://localhost:3000/property/owner
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsImlhdCI6MTY5ODk3MjcwNSwiZXhwIjoxNjk4OTc0NTA1fQ.V-NGm9fdtVjRpmjwiEKzKsOZLa72aAw7wtBQ_TQWDI4
+
 ### Find One Property
 GET http://localhost:3000/property/6503d0148880588f3dedb171
 
