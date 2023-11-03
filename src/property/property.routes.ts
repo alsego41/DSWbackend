@@ -4,6 +4,11 @@ import { SharedController } from '../shared/controller.js'
 
 export const propertyRouter = Router()
 
+propertyRouter.get(
+	'/owner',
+	SharedController.verifyToken,
+	propertyController.findByOwner,
+)
 propertyRouter.get('/:id', propertyController.findById)
 propertyRouter.get('/', propertyController.findAll)
 propertyRouter.post(
