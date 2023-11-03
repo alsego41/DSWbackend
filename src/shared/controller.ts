@@ -81,7 +81,7 @@ async function availPropertiesByDates(req: Request, res: Response) {
 				propsFiltered.push(result)
 			}
 		}
-		return res.status(200).json({ province, city, propsFiltered })
+		return res.status(200).json({ propsFiltered })
 	} catch (error) {
 		await session.abortTransaction()
 		console.error('Transaction aborted. Error:', error)
