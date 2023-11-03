@@ -13,6 +13,11 @@ export class ProvinceRepository implements Repository<ProvinceClass> {
 		return prov
 	}
 
+	public async findByProvId(item: { id: string }): Promise<any> {
+		const prov = await ProvinceModel.findOne({ idProvince: item.id }).exec()
+		return prov
+	}
+
 	public async findById(item: {
 		_id: String
 	}): Promise<DocumentType<ProvinceClass> | null> {

@@ -51,15 +51,8 @@ async function create(req: Request, res: Response) {
 		price: property.price,
 		user: decodedToken.id,
 	}
-	await repository
-		.create(newProperty)
-		.then((property) => {
-			console.log(`Property ${property?._id} created`)
-			res.locals.property = property
-		})
-		.catch((err) => {
-			res.locals.err = { message: err._message, statusCode: 400 }
-		})
+	const newProp = await repository.create(newProperty)
+	return newProp
 }
 
 async function remove(req: Request, res: Response) {

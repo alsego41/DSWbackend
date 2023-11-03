@@ -9,24 +9,18 @@ async function findAll(req: Request, res: Response) {
 	return res.status(200).json(allProvinces)
 }
 
-async function findOne(req: Request, res: Response) {
-	const provinces = await provRepository.findOne({
-		name: req.body.province.name,
+async function findByProvId(req: Request, res: Response) {
+	const province = await provRepository.findByProvId({
+		id: req.body.province.id,
 	})
-	return provinces
+	return province
 }
 
-async function findOrCreate(req: Request, res: Response) {
-	const prov = await provRepository.findById({ _id: req.body.province.id })
-	if (!prov) {
-		const newProv = await provRepository.create({
-			nameProvince: req.body.province.nombre,
-			idProvince: req.body.province.id,
-		})
-		res.locals.prov = newProv
-	} else {
-		res.locals.prov = prov
-	}
+async function findByName(req: Request, res: Response) {
+	const provinces = await provRepository.findOne({
+		name: req.body.province.nombre,
+	})
+	return provinces
 }
 
 async function findById(req: Request, res: Response) {
@@ -39,20 +33,11 @@ async function findById(req: Request, res: Response) {
 
 async function create(req: Request, res: Response) {
 	let newProvince: ProvinceClass = {
-		nameProvince: req.body.province,
+		idProvince: req.body.province.id,
+		nameProvince: req.body.province.nombre,
 	}
-	await provRepository
-		.create(newProvince)
-		.then((province) => {
-			console.log(`province ${province?._id} created`)
-			return res.status(201).json(province)
-		})
-		.catch((err) => {
-			console.log(err._message)
-			return res
-				.status(400)
-				.json({ message: err._message || 'Already created' })
-		})
+	const province = await provRepository.create(newProvince)
+	return province
 }
 
 async function remove(req: Request, res: Response) {
@@ -81,8 +66,8 @@ async function update(req: Request, res: Response) {
 export const provinceController = {
 	findAll,
 	findById,
-	findOne,
-	findOrCreate,
+	findByProvId,
+	findByName,
 	create,
 	remove,
 	update,
