@@ -8,8 +8,13 @@ export class ProvinceRepository implements Repository<ProvinceClass> {
 		return provinces
 	}
 
-	public async findOne(id: string): Promise<any> {
-		const prov = await ProvinceModel.findOne({ idProvince: id }).exec()
+	public async findOne(item: { name: string }): Promise<any> {
+		const prov = await ProvinceModel.findOne({ nameProvince: item.name }).exec()
+		return prov
+	}
+
+	public async findByProvId(item: { id: string }): Promise<any> {
+		const prov = await ProvinceModel.findOne({ idProvince: item.id }).exec()
 		return prov
 	}
 

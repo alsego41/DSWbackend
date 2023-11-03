@@ -1,31 +1,36 @@
-import { Schema, Document, model } from 'mongoose'
+import { Ref, getModelForClass, index, prop } from '@typegoose/typegoose'
+import { PropertyClass, PropertyModel } from '../property/property.entity.js'
 
-export interface IUser {
-	firstName: String
-	lastName: String
-	dni: Number
-	email: String
-	address: String
-	password: string
-	dob: String
-	gender: String
-	bankAccount: String
-	properties: String[]
+export class UserClass {
+	@prop({ required: true })
+	public firstName?: String
+
+	@prop({ required: true })
+	public lastName?: String
+
+	@prop({ required: true })
+	public dni?: Number
+
+	@prop({ required: true })
+	public email?: String
+
+	@prop({ required: true })
+	public address?: String
+
+	@prop({ required: true })
+	public password?: String
+
+	@prop({ required: true })
+	public dob?: String
+
+	@prop({ required: true })
+	public gender?: String
+
+	@prop({ required: false })
+	public bankAccount?: String
+
+	// @prop({ required: true, ref: () => PropertyClass })
+	// public properties?: Ref<PropertyClass[]>
 }
 
-export type UserDocument = IUser & Document
-
-const userSchema: Schema = new Schema<IUser>({
-	firstName: { type: String, required: true },
-	lastName: { type: String, required: true },
-	dni: { type: Number, required: true },
-	email: { type: String, required: true },
-	address: { type: String, required: true },
-	password: { type: String, required: true },
-	dob: { type: String, required: true },
-	gender: { type: String, required: true },
-	bankAccount: String,
-	properties: [{ type: Schema.Types.ObjectId, ref: 'Property' }],
-})
-
-export const UserModel = model<IUser>('User', userSchema)
+export const UserModel = getModelForClass(UserClass)

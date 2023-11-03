@@ -1,0 +1,31 @@
+### 
+POST http://localhost:3000/booking/new
+Content-Type: application/json
+
+{ "booking": {
+    "status": "Disponible",
+    "checkIn": "2023-05-03",
+    "checkOut": "2023-05-18",
+    "totalPrice": 123450,
+    "owner": "652609400790c96f82b4cd32",
+    "guest": "64fcfe88e2b0ebef1862e040",
+    "property": "65260c090790c96f82b4cd7d"}
+}
+
+###
+GET http://localhost:3000/booking
+
+###
+POST http://localhost:3000/booking/checkAvailability
+Content-Type: application/json
+
+{
+    "booking" : {
+    "checkInExp": "2023-05-19",
+    "checkOutExp": "2023-05-19",
+    "propertyId": "6525cf50e1427dc911b0f1dd"}
+}
+
+###
+GET http://localhost:3000/booking/ownerlist
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsImlhdCI6MTY5ODk3MjcwNSwiZXhwIjoxNjk4OTc0NTA1fQ.V-NGm9fdtVjRpmjwiEKzKsOZLa72aAw7wtBQ_TQWDI4

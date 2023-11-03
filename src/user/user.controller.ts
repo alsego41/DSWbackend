@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import { UserRepository } from './user.repository.js'
 import bcrypt from 'bcrypt'
 import jwt, { Secret } from 'jsonwebtoken'
-import { IUser } from './user.entity.js'
+import { UserClass } from './user.entity.js'
+import { PropertyClass } from '../property/property.entity.js'
 
 const repository = new UserRepository()
 
@@ -40,10 +41,13 @@ async function login(req: Request, res: Response) {
 	if (!user) {
 		return res.status(404).json({ message: 'User not found', status: false })
 	}
-	let isPwdValid = await bcrypt.compare(password, user?.password)
+	let isPwdValid = await bcrypt.compare(password, user?.password as string)
 	if (isPwdValid) {
 		const token = jwt.sign(
-			{ id: user?._id, properties: user?.properties },
+			{
+				id: user?._id,
+				// properties: user?.properties
+			},
 			process.env.JWT_TOKEN_KEY as Secret,
 			{ expiresIn: '30 minutes' },
 		)
@@ -76,7 +80,7 @@ async function register(req: Request, res: Response) {
 	if (alreadyUser) {
 		return res.status(409).json({ message: 'User already exists' })
 	}
-	let newUser: IUser = {
+	let newUser: UserClass = {
 		firstName,
 		lastName,
 		dni,
@@ -86,7 +90,7 @@ async function register(req: Request, res: Response) {
 		dob,
 		gender,
 		bankAccount: '',
-		properties: [],
+		// properties: undefined,
 	}
 	await repository
 		.create(newUser)

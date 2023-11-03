@@ -10,23 +10,22 @@ async function findAll(req: Request, res: Response) {
 	return res.status(200).json(allcities)
 }
 
-async function findOrCreate(req: Request, res: Response) {
+async function findOne(req: Request, res: Response) {
 	const city = await cityRepository.findOne({
 		id: req.body.city.id,
 		nombre: req.body.city.nombre,
 		departamento: req.body.city.departamento,
 	})
-	if (!city) {
-		const newCity = await cityRepository.create({
-			idCity: req.body.city.id,
-			nameCity: req.body.city.nombre,
-			nameDepartamento: req.body.city.departamento,
-			province: req.body.province._id,
-		})
-		res.locals.city = newCity
-	} else {
-		res.locals.city = city
-	}
+	return city
+}
+
+async function findByName(req: Request, res: Response) {
+	const city = await cityRepository.findByName({
+		nombre: req.body.city.nombre,
+		departamento: req.body.city.departamento,
+		province: req.body.city.province,
+	})
+	return city
 }
 
 async function findById(req: Request, res: Response) {
@@ -39,21 +38,13 @@ async function findById(req: Request, res: Response) {
 
 async function create(req: Request, res: Response) {
 	let newCity: CityClass = {
-		nameCity: req.body.city,
-		province: req.body.provinceId,
+		nameCity: req.body.city.nombre,
+		idCity: req.body.city.id,
+		nameDepartamento: req.body.city.departamento,
+		province: req.body.province._id,
 	}
-	await cityRepository
-		.create(newCity)
-		.then((city) => {
-			console.log(`city ${city?._id} created`)
-			return res.status(201).json(city)
-		})
-		.catch((err) => {
-			console.log(err)
-			return res
-				.status(400)
-				.json({ message: err._message || 'Already created' })
-		})
+	const city = await cityRepository.create(newCity)
+	return city
 }
 
 async function remove(req: Request, res: Response) {
@@ -82,7 +73,8 @@ async function update(req: Request, res: Response) {
 export const cityController = {
 	findAll,
 	findById,
-	findOrCreate,
+	findOne,
+	findByName,
 	create,
 	remove,
 	update,
