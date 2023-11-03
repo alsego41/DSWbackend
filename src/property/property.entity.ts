@@ -1,39 +1,49 @@
-import { Schema, Document, model } from 'mongoose'
+import { Ref, getModelForClass, index, prop } from '@typegoose/typegoose'
+import { UserDocument, UserModel } from '../user/user.entity.js'
+import { CityClass, CityModel } from '../city/city.entity.js'
 
-export interface IProperty {
-	nameProperty: String
-	statusProperty: String
-	city: String
-	photo: String
-	address: String
-	zone: String
-	m2: Number
-	spaces: Number
-	roomQty: Number
-	bathQty: Number
-	backyard: Boolean
-	grill: Boolean
-	price: Number
-	user: String
+export class PropertyClass {
+	@prop({ required: true })
+	public nameProperty?: String
+
+	@prop({ required: true })
+	public statusProperty?: String
+
+	@prop({ required: true, ref: () => CityModel })
+	public city?: Ref<CityClass>
+
+	@prop({ required: false })
+	public photo?: String
+
+	@prop({ required: true })
+	public address?: String
+
+	@prop({ required: true })
+	public zone?: String
+
+	@prop({ required: true })
+	public m2?: Number
+
+	@prop({ required: true })
+	public spaces?: Number
+
+	@prop({ required: true })
+	public roomQty?: Number
+
+	@prop({ required: true })
+	public bathQty?: Number
+
+	@prop({ required: true })
+	public backyard?: Boolean
+
+	@prop({ required: true })
+	public grill?: Boolean
+
+	@prop({ required: true })
+	public price?: Number
+
+	@prop({ required: true, ref: () => UserModel })
+	public user?: Ref<UserDocument>
 }
 
-export type PropertyDocument = IProperty & Document
-
-export const propertySchema = new Schema({
-	nameProperty: { type: String, required: true },
-	statusProperty: String,
-	city: { type: Schema.Types.ObjectId, ref: 'City' },
-	photo: String,
-	address: { type: String, required: true },
-	zone: { type: String, required: true },
-	m2: { type: Number, required: true },
-	spaces: { type: Number, required: true },
-	roomQty: { type: Number, required: true },
-	bathQty: { type: Number, required: true },
-	backyard: Boolean,
-	grill: Boolean,
-	price: Number,
-	user: { type: Schema.Types.ObjectId, ref: 'User' },
-})
-
-export const PropertyModel = model<IProperty>('Property', propertySchema)
+export const PropertyModel = getModelForClass(PropertyClass)

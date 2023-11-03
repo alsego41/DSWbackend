@@ -1,6 +1,6 @@
 import { Ref, getModelForClass, index, prop } from '@typegoose/typegoose'
 import { UserDocument, UserModel } from '../user/user.entity.js'
-import { PropertyDocument, PropertyModel } from '../property/property.entity.js'
+import { PropertyClass, PropertyModel } from '../property/property.entity.js'
 
 @index({ owner: 1, guest: 1, property: 1, checkIn: 1 }, { unique: true })
 export class BookingClass {
@@ -22,8 +22,8 @@ export class BookingClass {
 	@prop({ required: true, ref: () => UserModel })
 	public guest?: Ref<UserDocument>
 
-	@prop({ required: true, ref: () => PropertyModel })
-	public property?: Ref<PropertyDocument>
+	@prop({ required: true, ref: () => PropertyClass })
+	public property?: Ref<PropertyClass>
 }
 
 export const BookingModel = getModelForClass(BookingClass)

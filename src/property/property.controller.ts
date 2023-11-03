@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { PropertyRepository } from './property.repository.js'
-import { IProperty } from './property.entity.js'
+import { PropertyClass } from './property.entity.js'
 import { ProvinceRepository } from '../province/province.repository.js'
 
 const repository = new PropertyRepository()
@@ -28,7 +28,7 @@ async function findByCity(req: Request, res: Response) {
 
 async function create(req: Request, res: Response) {
 	let { property, city, decodedToken } = req.body
-	let newProperty: IProperty = {
+	let newProperty: PropertyClass = {
 		nameProperty: property.nameProperty,
 		statusProperty: property.statusProperty,
 		city: city._id,

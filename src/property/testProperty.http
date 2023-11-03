@@ -26,7 +26,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5Z
 
 
 ### Delete a property
-POST http://localhost:3000/property/delete/6503ceb256e0647a7b95eaa2
+POST http://localhost:3000/property/delete/64f684bb6e1ff583f2c5f3b8
 
 {}
 
@@ -48,12 +48,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5Z
 	"backyard": false,
 	"grill": false,
 	"user": ""
-}
-
-###
-POST http://localhost:3000/property/find
-Content-Type: application/json
-
-{
-	"city": "65260a750790c96f82b4cd43"
 }
