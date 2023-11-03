@@ -1,7 +1,6 @@
 import { DocumentType } from '@typegoose/typegoose'
 import { Repository } from '../shared/repository'
 import { BookingClass, BookingModel } from './booking.entity.js'
-import { Document } from 'mongoose'
 
 export class BookingRepository implements Repository<BookingClass> {
 	public async findAll(): Promise<DocumentType<BookingClass>[]> {
@@ -50,8 +49,11 @@ export class BookingRepository implements Repository<BookingClass> {
 	public async findByOwner(item: {
 		owner: string
 	}): Promise<DocumentType<BookingClass>[] | undefined> {
-		const bookings = BookingModel.find({ owner: item.owner })
-			// .populate(['guest', 'property'])
+		const bookings = await BookingModel.find({ owner: item.owner })
+			.populate([
+				'property',
+				{ path: 'guest', select: 'firstName lastName dni email dob' },
+			])
 			.exec()
 		return bookings
 	}
