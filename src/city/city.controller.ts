@@ -13,8 +13,6 @@ async function findAll(req: Request, res: Response) {
 async function findOne(req: Request, res: Response) {
 	const city = await cityRepository.findOne({
 		id: req.body.city.id,
-		nombre: req.body.city.nombre,
-		departamento: req.body.city.departamento,
 	})
 	return city
 }

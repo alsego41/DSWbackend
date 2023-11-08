@@ -8,15 +8,9 @@ export class CityRepository implements Repository<CityClass> {
 		return cities
 	}
 
-	public async findOne(city: {
-		id: string
-		nombre: string
-		departamento: string
-	}): Promise<any> {
+	public async findOne(city: { id: string }): Promise<any> {
 		const cityDoc = await CityModel.findOne({
 			idCity: city.id,
-			nameCity: city.nombre,
-			nameDepartamento: city.departamento,
 		})
 		return cityDoc
 	}
