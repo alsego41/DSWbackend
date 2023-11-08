@@ -26,6 +26,13 @@ async function findByCity(req: Request, res: Response) {
 	return properties
 }
 
+async function findByProvince(req: Request, res: Response) {
+	const properties = await repository.findByProvince({
+		provinceId: req.body.province._id,
+	})
+	return properties
+}
+
 async function findByOwner(req: Request, res: Response) {
 	const properties = await repository.findByOwner({
 		owner: req.body.decodedToken.id,
@@ -82,6 +89,7 @@ export const propertyController = {
 	findAll,
 	findById,
 	findByCity,
+	findByProvince,
 	findByOwner,
 	create,
 	remove,

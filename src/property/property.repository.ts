@@ -1,6 +1,7 @@
 import { DocumentType, mongoose } from '@typegoose/typegoose'
 import { Repository } from '../shared/repository'
 import { PropertyClass, PropertyModel } from './property.entity.js'
+import { CityModel } from '../city/city.entity.js'
 
 export class PropertyRepository implements Repository<PropertyClass> {
 	public async findAll(): Promise<DocumentType<PropertyClass>[]> {
@@ -19,11 +20,33 @@ export class PropertyRepository implements Repository<PropertyClass> {
 		}
 	}
 
+	public async findByProvince(item: {
+		provinceId: string
+	}): Promise<DocumentType<PropertyClass>[] | undefined> {
+		const provinceId = new mongoose.Types.ObjectId(item.provinceId)
+		const properties = await PropertyModel.aggregate([
+			{
+				$lookup: {
+					from: CityModel.collection.name,
+					localField: 'city',
+					foreignField: '_id',
+					as: 'cityInfo',
+				},
+			},
+			{ $unwind: '$cityInfo' },
+			{
+				$match: {
+					'cityInfo.province': provinceId,
+				},
+			},
+		])
+		return properties
+	}
+
 	public async findByCity(item: {
 		city: string
 	}): Promise<DocumentType<PropertyClass>[] | undefined> {
 		const cityId = new mongoose.Types.ObjectId(item.city)
-		// console.log(cityId)
 		const properties = await PropertyModel.find({
 			city: item.city,
 			statusProperty: 'Disponible',
