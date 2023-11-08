@@ -56,13 +56,45 @@ async function createProp(req: Request, res: Response) {
 	}
 }
 
-async function availPropertiesByDates(req: Request, res: Response) {
+async function availPropertiesByProvinceByDates(req: Request, res: Response) {
 	const session = await mongoose.startSession()
 	session.startTransaction()
 	try {
-		const province = await provinceController.findByName(req, res)
-		req.body.city.province = province._id.toHexString()
-		const city = await cityController.findByName(req, res)
+		const province = await provinceController.findByProvId(req, res)
+		req.body.province._id = province._id.toHexString()
+		let properties = await propertyController.findByProvince(req, res)
+		async function checkAvail(prop: any) {
+			req.body.booking.propertyId = prop._id
+			let isAvailable = await bookingController.findDateCollisions(req, res)
+			console.log('La propiedad ', prop._id, 'esta disponible ? ', isAvailable)
+			if (isAvailable) {
+				return prop
+			}
+		}
+		let propsFiltered: any[] = []
+		for (let i = 0; i < properties?.length!; i++) {
+			let result = await checkAvail(properties![i])
+			if (result) {
+				propsFiltered.push(result)
+			}
+		}
+		return res.status(200).json({ propsFiltered })
+	} catch (error) {
+		await session.abortTransaction()
+		console.error('Transaction aborted. Error:', error)
+		return res.status(400).json({ message: 'Transaction aborted' })
+	} finally {
+		session.endSession()
+	}
+}
+
+async function availPropertiesByCityByDates(req: Request, res: Response) {
+	const session = await mongoose.startSession()
+	session.startTransaction()
+	try {
+		// const province = await provinceController.findByProvId(req, res)
+		// req.body.city.province = province._id.toHexString()
+		const city = await cityController.findOne(req, res)
 		req.body.city.id = city._id
 		let properties = await propertyController.findByCity(req, res)
 
@@ -95,5 +127,6 @@ export const SharedController = {
 	verifyToken,
 	testTokenVerification,
 	createProp,
-	availPropertiesByDates,
+	availPropertiesByCityByDates,
+	availPropertiesByProvinceByDates,
 }
