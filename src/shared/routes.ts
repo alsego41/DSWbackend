@@ -9,4 +9,12 @@ sharedRouter.post(
 	SharedController.createProp,
 )
 
-sharedRouter.post('/availProps', SharedController.availPropertiesByDates)
+sharedRouter.post(
+	'/availProps/city',
+	SharedController.availPropertiesByCityByDates,
+)
+
+sharedRouter.post(
+	'/availProps/province',
+	SharedController.availPropertiesByProvinceByDates,
+)
