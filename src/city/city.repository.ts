@@ -4,7 +4,7 @@ import { CityClass, CityModel } from './city.entity.js'
 
 export class CityRepository implements Repository<CityClass> {
 	public async findAll(): Promise<DocumentType<CityClass>[]> {
-		const cities = await CityModel.find().exec()
+		const cities = await CityModel.find().populate('province').exec()
 		return cities
 	}
 
