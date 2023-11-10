@@ -1,0 +1,17 @@
+###
+POST http://localhost:3000/sh/availProps
+Content-Type: application/json
+
+{
+    "city": {
+        "nombre": "ARROYO VERDE",
+        "departamento": "Biedma"
+    },
+    "province": {
+        "name": "Chubut"
+    },
+    "booking": {
+        "checkInExp": "2023-05-01",
+        "checkOutExp": "2023-06-01"
+    }
+}

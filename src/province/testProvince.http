@@ -1,0 +1,45 @@
+###
+GET http://localhost:3000/province
+
+###
+POST http://localhost:3000/province/new
+Content-Type: application/json
+
+{
+    "province": "Buenos Aires"
+}
+
+
+###
+POST http://localhost:3000/sh/newprop
+Content-Type: application/json
+
+{   
+    "province": {
+        "id": "82",
+        "nombre": "Santa Fe"
+    },
+    "city": {
+        "id": "82084270000",
+        "nombre": "ROSARIO",
+        "departamento": "Rosario"
+    },
+    "property": {
+        "nameProperty": "Test n° 3 de casa City/Prov",
+        "statusProperty": "Disponible",
+        "photo": "",
+        "address": "Buenos Aires 1023",
+        "zone": "Centro",
+        "m2": 85,
+        "spaces": 4,
+        "roomQty": 3,
+        "bathQty": 2,
+        "backyard": false,
+        "grill": false,
+        "user": "64ed2c49f642fa68a08f2bd4",
+        "price": 12000
+    }
+}
+
+###
+DELETE http://localhost:3000/province/delete/651b41d98d3dca581114c29a
