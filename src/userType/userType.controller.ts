@@ -28,3 +28,34 @@ async function findById(req: Request, res: Response) {
     }
     
 }
+
+async function remove(req: Request, res: Response) {
+	const _id = req.params.id
+	console.log(_id)
+	await repository.remove({ _id })
+	return res.status(200).json({ message: 'Usertype deleted' })
+}
+
+async function update(req: Request, res: Response) {
+	await repository
+		.update({
+			_id: req.body.decodedToken.id,
+			user: req.body.user,
+		})
+		.then((doc) => {
+			console.log(doc)
+			return res.status(200).json({ message: 'Usertype updated' })
+		})
+		.catch((err) => {
+			console.log(err)
+			return res.status(400).json({ message: "Couldn't update usertype" })
+		})
+}
+
+export const userTypeController ={
+    findAll,
+    findById,
+    remove,
+    update,
+    sanitizedInput,
+}
