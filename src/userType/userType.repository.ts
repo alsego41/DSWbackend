@@ -17,8 +17,8 @@ export class userTypeRepository implements Repository<userTypeclass>{
     }
     public async findbyname(nameType: String): Promise<DocumentType<userTypeclass> | null> {
 		try {
-			const user = await userTypeModel.findbyname({ nameType }).exec()
-			return user
+			const userType = await userTypeModel.findOne({ nameType }).exec()
+			return userType
 		} catch (err) {
 			return null
 		}
@@ -26,8 +26,8 @@ export class userTypeRepository implements Repository<userTypeclass>{
     public async create(
 		item: userTypeclass,
 	): Promise<DocumentType<userTypeclass> | null> {
-		const newUser = new userTypeModel(item)
-		return await newUser.save()
+		const newuserType = new userTypeModel(item)
+		return await newuserType.save()
 	}
     public async update(item: {
 		_id: String
