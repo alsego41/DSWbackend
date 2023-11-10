@@ -12,3 +12,19 @@ async function findAll(req: Request, res: Response) {
     return res.status(200).json(userstype)
 }
 
+async function sanitizedInput(req: Request, res: Response, next:NextFunction) {
+    const {nametype} = req.body
+    req.body.sanitizedInput ={
+       nametype
+    }
+    next()
+}
+
+async function findById(req: Request, res: Response) {
+    console.log(req.body)
+    const usertype = await repository.findById({_id: req.params.id})
+    if (!usertype) {
+        return res.status(404).json({ messsage: 'Usertype not found'})
+    }
+    
+}
