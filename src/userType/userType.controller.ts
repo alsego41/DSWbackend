@@ -40,7 +40,7 @@ async function update(req: Request, res: Response) {
 	await repository
 		.update({
 			_id: req.body.decodedToken.id,
-			user: req.body.user,
+			usertype: req.body.userType,
 		})
 		.then((doc) => {
 			console.log(doc)
