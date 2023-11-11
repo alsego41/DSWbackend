@@ -8,20 +8,20 @@ GET http://localhost:3000/user
 GET http://localhost:3000/user/64ed2c49f642fa68a08f2bd4
 
 ### Create an user
-POST http://localhost:3000/user/register
+POST http://localhost:3000/sh/newuser
 Content-Type: application/json
 
 {
     "firstName": "Beto",
 	"lastName": "Gonzalez",
 	"dni": 41231231,
-	"email": "beto4@gmail.com",
+	"email": "beto5@gmail.com",
 	"address": "Newt 31",
 	"password": "beto",
 	"dob": "1998-19-06",
 	"gender": "male",
 	"bankAccount": "",
-	"properties": []
+	"userType": {"nameType": "Guest"}
 }
 
 ### Login an user

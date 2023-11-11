@@ -19,6 +19,7 @@ export class userTypeRepository implements Repository<userTypeclass> {
 		nameType: any,
 	): Promise<DocumentType<userTypeclass> | null> {
 		try {
+			console.log(nameType)
 			const userType = await userTypeModel.findOne({ nameType }).exec()
 			return userType
 		} catch (err) {

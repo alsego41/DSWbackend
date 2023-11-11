@@ -24,3 +24,7 @@ sharedRouter.post(
 	'/availProps/province',
 	SharedController.availPropertiesByProvinceByDates,
 )
+sharedRouter.post(
+	'/newuser',
+	SharedController.createuser,
+)

@@ -1,0 +1,8 @@
+### Find All Users
+GET http://localhost:3000/userType
+
+### Create an user
+POST http://localhost:3000/userType/create
+Content-Type: application/json
+
+{"nameType": "Guest"}

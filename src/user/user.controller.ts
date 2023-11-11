@@ -112,17 +112,11 @@ async function register(req: Request, res: Response) {
 		bankAccount: '',
 		userType: req.body.userType._id,
 	}
-	await repository
+	console.log(newUser)
+	const user = await repository
 		.create(newUser)
-		.then((user) => {
-			console.log(user?._id)
-			return res.status(201).json({ message: 'User created' })
-		})
-		.catch((err) => {
-			console.log('create catch')
-			console.log(err._message)
-			return res.status(400).json({ message: err._message })
-		})
+		return user
+		
 }
 
 async function remove(req: Request, res: Response) {
