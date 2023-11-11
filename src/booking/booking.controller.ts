@@ -51,7 +51,6 @@ async function create(req: Request, res: Response) {
 	const session = await mongoose.startSession()
 	session.startTransaction()
 	const { booking, decodedToken, property } = req.body
-
 	function dateDiffInDays(start: Date, end: Date) {
 		const _MS_PER_DAY = 1000 * 60 * 60 * 24
 		const utc1 = Date.UTC(
@@ -65,13 +64,12 @@ async function create(req: Request, res: Response) {
 	const checkIn = new Date(booking.checkIn)
 	const checkOut = new Date(booking.checkOut)
 	const difference = dateDiffInDays(checkIn, checkOut)
-	// console.log(difference)
 
 	try {
 		// const options = { session }
 		// me llega la idpropiedad, el guestid y las fechas
 		// asigno el estado, busco la propiedad, meto su ownerid y su precio * dias
-		const newBooking: BookingClass = {
+		const book: BookingClass = {
 			status: 'Reservada',
 			checkIn,
 			checkOut,
@@ -80,17 +78,15 @@ async function create(req: Request, res: Response) {
 			guest: decodedToken.id,
 			property: property._id,
 		}
-		if (checkIn === null || checkOut === null) {
+		if (!booking.checkIn || !booking.checkOut) {
 			throw new Error('Invalid Dates')
 		}
-		// await BookingModel.create(booking1)
+		const newBooking = await BookingModel.create(book)
 		await session.commitTransaction()
-		// return res.status(200).json({ booking1 })
 		return newBooking
 	} catch (error) {
-		await session.abortTransaction()
 		console.error('Transaction aborted. Error:', error)
-		// return res.status(400).json({ message: 'Transaction aborted' })
+		return await session.abortTransaction()
 	} finally {
 		session.endSession()
 	}

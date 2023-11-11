@@ -130,14 +130,16 @@ async function createBooking(req: Request, res: Response) {
 		const property = await propertyController.findByIdSh(req, res)
 		req.body.property = property
 		const newBooking = await bookingController.create(req, res)
-		// console.log(req.body.property)
-
+		if (!newBooking) {
+			throw new Error('Booking creation failed')
+		}
 		await session.commitTransaction()
+		console.log('Booking created')
 		return res.status(200).json({ property, newBooking })
 	} catch (error) {
 		await session.abortTransaction()
 		console.error('Transaction aborted. Error:', error)
-		return res.status(400).json({ message: 'Transaction aborted' })
+		return res.status(400).json({ message: 'Booking creation failed' })
 	} finally {
 		session.endSession()
 	}
