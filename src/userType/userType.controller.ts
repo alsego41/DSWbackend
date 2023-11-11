@@ -20,6 +20,13 @@ async function sanitizedInput(req: Request, res: Response, next: NextFunction) {
 	next()
 }
 
+async function findbyname(req:Request, res:Response) {
+	console.log(req.body)
+	const userType = await repository.findbyname({ nameType: req.body.userType.nameType})
+	return userType
+	
+}
+
 async function findById(req: Request, res: Response) {
 	console.log(req.body)
 	const usertype = await repository.findById({ _id: req.params.id })
@@ -57,4 +64,5 @@ export const userTypeController = {
 	remove,
 	update,
 	sanitizedInput,
+	findbyname,
 }

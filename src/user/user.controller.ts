@@ -94,11 +94,11 @@ async function register(req: Request, res: Response) {
 			userType
 		)
 	) {
-		return res.status(400).json({ message: 'Missing info in some inputs' })
+		return undefined
 	}
 	const alreadyUser = await repository.findOne(email)
 	if (alreadyUser) {
-		return res.status(409).json({ message: 'User already exists' })
+		return undefined
 	}
 	let newUser: UserClass = {
 		firstName,
@@ -110,8 +110,7 @@ async function register(req: Request, res: Response) {
 		dob,
 		gender,
 		bankAccount: '',
-		userType = req.body.userType,
-		// properties: undefined,
+		userType: req.body.userType._id,
 	}
 	await repository
 		.create(newUser)

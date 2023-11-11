@@ -6,6 +6,8 @@ import { propertyController } from '../property/property.controller.js'
 import { userController } from '../user/user.controller.js'
 import { bookingController } from '../booking/booking.controller.js'
 import { mongoose } from '@typegoose/typegoose'
+import { userTypeController } from '../userType/userType.controller.js'
+import { error } from 'console'
 
 async function verifyToken(req: Request, res: Response, next: NextFunction) {
 	const token: string =
@@ -145,6 +147,29 @@ async function createBooking(req: Request, res: Response) {
 	}
 }
 
+async function createuser(req:Request, res: Response) {
+	const session = await mongoose.startSession()
+	session.startTransaction()
+	try{
+		const userType = await userTypeController.findbyname(req, res)
+		req.body.userType = userType
+		const newUser = await userController.register(req, res)
+		if (!newUser) {
+			throw new Error('User creation failed')
+		}
+		await session.commitTransaction()
+		console.log('User created')
+		return res.status(200).json({ userType, newUser})
+	} catch (error) {
+		await session.abortTransaction()
+		console.error('transaction aborted. Error:', error)
+		return res.status(400).json({ message: 'User creation faild'})
+	} finally {
+		session.endSession()
+	}
+	
+}
+
 export const SharedController = {
 	verifyToken,
 	testTokenVerification,
@@ -152,4 +177,5 @@ export const SharedController = {
 	availPropertiesByCityByDates,
 	availPropertiesByProvinceByDates,
 	createBooking,
+	createuser,
 }
