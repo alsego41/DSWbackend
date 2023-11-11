@@ -5,4 +5,4 @@ export class amenityclass{
     public nameAmerity?: string
 }
 
-export const ameritymodel = getModelForClass(amenityclass)
+export const amenitymodel = getModelForClass(amenityclass)
