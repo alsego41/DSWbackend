@@ -39,7 +39,7 @@ async function sanitizeUserInput(req: Request, res: Response, next:NextFunction)
 		dob,
 		gender,
 		bankAccount: '',
-		properties: [],
+
 	}
 
 	next()
@@ -79,7 +79,7 @@ async function login(req: Request, res: Response) {
 }
 
 async function register(req: Request, res: Response) {
-	const { firstName, lastName, dni, email, address, password, dob, gender } =
+	const { firstName, lastName, dni, email, address, password, dob, gender, userType } =
 		req.body
 	if (
 		!(
@@ -90,7 +90,8 @@ async function register(req: Request, res: Response) {
 			address &&
 			password &&
 			dob &&
-			gender
+			gender &&
+			userType
 		)
 	) {
 		return res.status(400).json({ message: 'Missing info in some inputs' })
@@ -109,6 +110,7 @@ async function register(req: Request, res: Response) {
 		dob,
 		gender,
 		bankAccount: '',
+		userType = req.body.userType,
 		// properties: undefined,
 	}
 	await repository
