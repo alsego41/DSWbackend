@@ -58,6 +58,18 @@ export class BookingRepository implements Repository<BookingClass> {
 		return bookings
 	}
 
+	public async findByGuest(item: {
+		guest: string
+	}): Promise<DocumentType<BookingClass>[] | undefined> {
+		const bookings = await BookingModel.find({ guest: item.guest })
+			// .populate([
+			// 	'property',
+			// 	{ path: 'guest', select: 'firstName lastName dni email dob' },
+			// ])
+			.exec()
+		return bookings
+	}
+
 	public async create(
 		item: BookingClass,
 	): Promise<DocumentType<BookingClass> | null> {

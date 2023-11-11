@@ -10,6 +10,12 @@ sharedRouter.post(
 )
 
 sharedRouter.post(
+	'/newBooking',
+	SharedController.verifyToken,
+	SharedController.createBooking,
+)
+
+sharedRouter.post(
 	'/availProps/city',
 	SharedController.availPropertiesByCityByDates,
 )

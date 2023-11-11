@@ -9,6 +9,11 @@ bookingRouter.get(
 	SharedController.verifyToken,
 	bookingController.findByOwner,
 )
+bookingRouter.get(
+	'/guest',
+	SharedController.verifyToken,
+	bookingController.findByGuest,
+)
 bookingRouter.get('/:id', bookingController.findById)
 bookingRouter.get('/', bookingController.findAll)
 bookingRouter.post(

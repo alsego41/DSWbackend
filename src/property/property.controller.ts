@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction} from 'express'
+import { Request, Response, NextFunction } from 'express'
 import { PropertyRepository } from './property.repository.js'
 import { PropertyClass } from './property.entity.js'
 import { ProvinceRepository } from '../province/province.repository.js'
@@ -11,16 +11,28 @@ async function findAll(req: Request, res: Response) {
 }
 
 async function findById(req: Request, res: Response) {
-	const property = await repository.findById({ _id: req.params.id })
+	const property = await repository.findById({
+		_id: req.params.id || req.body.property.id,
+	})
 	if (!property) {
 		return res.status(404).json({ message: 'Property not found' })
 	}
 	return res.status(200).json(property)
 }
 
+async function findByIdSh(req: Request, res: Response) {
+	const property = await repository.findById({
+		_id: req.params.id || req.body.property.id,
+	})
+	return property
+}
 
-function sanitizePropertyInput(req: Request, res: Response, next:NextFunction){
-    req.body.sanitizedInput = {
+function sanitizePropertyInput(
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) {
+	req.body.sanitizedInput = {
 		nameProperty: req.body.nameProperty,
 		statusProperty: 'Disponible',
 		photo: './assets/testcasa.jpg',
@@ -38,7 +50,6 @@ function sanitizePropertyInput(req: Request, res: Response, next:NextFunction){
 
 	next()
 }
-
 
 async function findByCity(req: Request, res: Response) {
 	console.log(req.body.city.id)
@@ -79,7 +90,6 @@ async function create(req: Request, res: Response) {
 		grill: property.grill,
 		price: property.price,
 		user: decodedToken.id,
-
 	}
 	const newProp = await repository.create(newProperty)
 	return newProp
@@ -111,6 +121,7 @@ async function update(req: Request, res: Response) {
 export const propertyController = {
 	findAll,
 	findById,
+	findByIdSh,
 	findByCity,
 	findByProvince,
 	findByOwner,

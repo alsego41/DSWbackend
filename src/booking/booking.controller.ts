@@ -19,6 +19,13 @@ async function findById(req: Request, res: Response) {
 	return res.status(200).json(booking)
 }
 
+async function findByGuest(req: Request, res: Response) {
+	const bookings = await repository.findByGuest({
+		guest: req.body.decodedToken.id,
+	})
+	return res.status(200).json(bookings)
+}
+
 async function findByOwner(req: Request, res: Response) {
 	const bookings = await repository.findByOwner({
 		owner: req.body.decodedToken.id,
@@ -43,25 +50,47 @@ async function findDateCollisions(req: Request, res: Response) {
 async function create(req: Request, res: Response) {
 	const session = await mongoose.startSession()
 	session.startTransaction()
-	const { booking } = req.body
+	const { booking, decodedToken, property } = req.body
+
+	function dateDiffInDays(start: Date, end: Date) {
+		const _MS_PER_DAY = 1000 * 60 * 60 * 24
+		const utc1 = Date.UTC(
+			start.getFullYear(),
+			start.getMonth(),
+			start.getDate(),
+		)
+		const utc2 = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate())
+		return Math.floor((utc2 - utc1) / _MS_PER_DAY)
+	}
+	const checkIn = new Date(booking.checkIn)
+	const checkOut = new Date(booking.checkOut)
+	const difference = dateDiffInDays(checkIn, checkOut)
+	// console.log(difference)
+
 	try {
 		// const options = { session }
-		const booking1: BookingClass = {
-			status: booking.status,
-			checkIn: new Date(booking.checkIn),
-			checkOut: new Date(booking.checkOut),
-			totalPrice: booking.totalPrice,
-			owner: booking.owner,
-			guest: booking.guest,
-			property: booking.property,
+		// me llega la idpropiedad, el guestid y las fechas
+		// asigno el estado, busco la propiedad, meto su ownerid y su precio * dias
+		const newBooking: BookingClass = {
+			status: 'Reservada',
+			checkIn,
+			checkOut,
+			totalPrice: property.price * difference, //
+			owner: property.user, //
+			guest: decodedToken.id,
+			property: property._id,
 		}
-		await BookingModel.create(booking1)
+		if (checkIn === null || checkOut === null) {
+			throw new Error('Invalid Dates')
+		}
+		// await BookingModel.create(booking1)
 		await session.commitTransaction()
-		return res.status(200).json({ booking1 })
+		// return res.status(200).json({ booking1 })
+		return newBooking
 	} catch (error) {
 		await session.abortTransaction()
 		console.error('Transaction aborted. Error:', error)
-		return res.status(400).json({ message: 'Transaction aborted' })
+		// return res.status(400).json({ message: 'Transaction aborted' })
 	} finally {
 		session.endSession()
 	}
@@ -93,6 +122,7 @@ async function update(req: Request, res: Response) {
 export const bookingController = {
 	findAll,
 	findById,
+	findByGuest,
 	findByOwner,
 	findDateCollisions,
 	create,
