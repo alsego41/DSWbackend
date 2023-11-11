@@ -123,10 +123,31 @@ async function availPropertiesByCityByDates(req: Request, res: Response) {
 	}
 }
 
+async function createBooking(req: Request, res: Response) {
+	const session = await mongoose.startSession()
+	session.startTransaction()
+	try {
+		const property = await propertyController.findByIdSh(req, res)
+		req.body.property = property
+		const newBooking = await bookingController.create(req, res)
+		// console.log(req.body.property)
+
+		await session.commitTransaction()
+		return res.status(200).json({ property, newBooking })
+	} catch (error) {
+		await session.abortTransaction()
+		console.error('Transaction aborted. Error:', error)
+		return res.status(400).json({ message: 'Transaction aborted' })
+	} finally {
+		session.endSession()
+	}
+}
+
 export const SharedController = {
 	verifyToken,
 	testTokenVerification,
 	createProp,
 	availPropertiesByCityByDates,
 	availPropertiesByProvinceByDates,
+	createBooking,
 }
