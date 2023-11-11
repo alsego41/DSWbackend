@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { userTypeController } from './userType.controller'
+import { userTypeController } from './userType.controller.js'
 import { SharedController } from '../shared/controller'
 
 export const userTypeRouter = Router()

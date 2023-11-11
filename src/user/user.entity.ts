@@ -1,6 +1,6 @@
 import { Ref, getModelForClass, index, prop } from '@typegoose/typegoose'
 import { PropertyClass, PropertyModel } from '../property/property.entity.js'
-import { userTypeclass } from '../usertype/userType.entity.js'
+import { userTypeclass } from '../userType/userType.entity.js'
 
 export class UserClass {
 	@prop({ required: true })

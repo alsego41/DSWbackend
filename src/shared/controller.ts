@@ -6,7 +6,7 @@ import { propertyController } from '../property/property.controller.js'
 import { userController } from '../user/user.controller.js'
 import { bookingController } from '../booking/booking.controller.js'
 import { mongoose } from '@typegoose/typegoose'
-import { userTypeController } from '../usertype/userType.controller.js'
+import { userTypeController } from '../userType/userType.controller.js'
 import { error } from 'console'
 
 async function verifyToken(req: Request, res: Response, next: NextFunction) {
