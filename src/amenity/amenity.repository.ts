@@ -34,4 +34,10 @@ export class amenityRepository implements Repository<amenityclass>{
 		const amenity = await amenitymodel.findByIdAndUpdate(item._id, item.amenity)
 		return amenity
 	}
+    public async remove(item: {
+		_id: String
+	}): Promise<DocumentType<amenityclass> | null> {
+		const amenity = await amenitymodel.findByIdAndDelete(item._id)
+		return amenity
+	}
 }
