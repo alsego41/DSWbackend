@@ -6,7 +6,7 @@ import { propertyController } from '../property/property.controller.js'
 import { userController } from '../user/user.controller.js'
 import { bookingController } from '../booking/booking.controller.js'
 import { mongoose } from '@typegoose/typegoose'
-import { userTypeController } from '../userType/userType.controller.js'
+import { userTypeController } from '../usertype/userType.controller.js'
 import { error } from 'console'
 
 async function verifyToken(req: Request, res: Response, next: NextFunction) {
@@ -147,10 +147,10 @@ async function createBooking(req: Request, res: Response) {
 	}
 }
 
-async function createuser(req:Request, res: Response) {
+async function createuser(req: Request, res: Response) {
 	const session = await mongoose.startSession()
 	session.startTransaction()
-	try{
+	try {
 		const userType = await userTypeController.findbyname(req, res)
 		req.body.userType = userType
 		const newUser = await userController.register(req, res)
@@ -159,15 +159,14 @@ async function createuser(req:Request, res: Response) {
 		}
 		await session.commitTransaction()
 		console.log('User created')
-		return res.status(200).json({ userType, newUser})
+		return res.status(200).json({ userType, newUser })
 	} catch (error) {
 		await session.abortTransaction()
 		console.error('transaction aborted. Error:', error)
-		return res.status(400).json({ message: 'User creation faild'})
+		return res.status(400).json({ message: 'User creation faild' })
 	} finally {
 		session.endSession()
 	}
-	
 }
 
 export const SharedController = {

@@ -20,11 +20,12 @@ async function sanitizedInput(req: Request, res: Response, next: NextFunction) {
 	next()
 }
 
-async function findbyname(req:Request, res:Response) {
+async function findbyname(req: Request, res: Response) {
 	console.log(req.body)
-	const userType = await repository.findbyname({ nameType: req.body.userType.nameType})
+	const userType = await repository.findbyname({
+		nameType: req.body.userType.nameType,
+	})
 	return userType
-	
 }
 
 async function findById(req: Request, res: Response) {
