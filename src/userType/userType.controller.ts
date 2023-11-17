@@ -22,10 +22,7 @@ async function sanitizedInput(req: Request, res: Response, next: NextFunction) {
 }
 
 async function findbyname(req: Request, res: Response) {
-
-	const userType = await repository.findbyname(
-		 req.body.userType.nameType,
-	)
+	const userType = await repository.findbyname(req.body.userType.nameType)
 	console.log(userType)
 	return userType
 }
@@ -38,26 +35,20 @@ async function findById(req: Request, res: Response) {
 	}
 }
 
-async function create(req:Request, res: Response) {
-	const {nameType} = 
-	req.body
-	if (
-		!(
-			nameType
-		)
-	) {
-		return res.status(400).json ({message: 'Nametype missing'})
+async function create(req: Request, res: Response) {
+	const { nameType } = req.body
+	if (!nameType) {
+		return res.status(400).json({ message: 'Nametype missing' })
 	}
 	const alreadyuserType = await repository.findbyname(nameType)
-	if (alreadyuserType){
-		return res.status(400).json ({message: 'Nametype already exist'})
+	if (alreadyuserType) {
+		return res.status(400).json({ message: 'Nametype already exist' })
 	}
 	let newuserType: userTypeclass = {
-		nameType: nameType
+		nameType: nameType,
 	}
-	const userType = await repository 
-	.create(newuserType)
-	return res.status(201).json({userType})
+	const userType = await repository.create(newuserType)
+	return res.status(201).json({ userType })
 }
 
 async function remove(req: Request, res: Response) {
