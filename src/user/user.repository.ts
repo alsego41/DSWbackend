@@ -72,4 +72,16 @@ export class UserRepository implements Repository<UserClass> {
 		const user = await UserModel.findByIdAndDelete(item._id)
 		return user
 	}
+
+	public async updateType(item: {
+		userId: String
+		userTypeId: String
+	}): Promise<DocumentType<UserClass> | null> {
+		const userUpdated = await UserModel.findByIdAndUpdate(
+			item.userId,
+			{ userType: item.userTypeId },
+			{ new: true },
+		)
+		return userUpdated
+	}
 }
