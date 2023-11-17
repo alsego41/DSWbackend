@@ -49,12 +49,21 @@ async function sanitizeUserInput(
 }
 
 async function findById(req: Request, res: Response) {
-	console.log(req.body)
-	const user = await repository.findById({ _id: req.params.id })
+	// console.log(req.body)
+	const user = await repository.findById({
+		_id: req.params.id || req.body.decodedToken.id,
+	})
 	if (!user) {
 		return res.status(404).json({ message: 'User not found22' })
 	}
 	return res.status(200).json(user)
+}
+
+async function findByIdSh(req: Request, res: Response) {
+	const user = await repository.findById({
+		_id: req.params.id || req.body.decodedToken.id,
+	})
+	return user
 }
 
 async function login(req: Request, res: Response) {
@@ -172,14 +181,24 @@ async function update(req: Request, res: Response) {
 		})
 }
 
+async function updateType(req: Request, res: Response) {
+	const userUpdated = await repository.updateType({
+		userId: req.body.user._id,
+		userTypeId: req.body.userType._id,
+	})
+	return userUpdated
+}
+
 export const userController = {
 	findAll,
 	findById,
+	findByIdSh,
 	populate,
 	login,
 	register,
 	remove,
 	updateOwnProperties,
 	update,
+	updateType,
 	sanitizeUserInput,
 }
