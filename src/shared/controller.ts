@@ -37,6 +37,11 @@ async function createProp(req: Request, res: Response) {
 	const session = await mongoose.startSession()
 	session.startTransaction()
 	try {
+		req.body.userType = { ...req.body.userType, nameType: 'Host' }
+		const userType = await userTypeController.findbyname(req, res)
+		req.body.userType = userType
+		let user = await userController.findByIdSh(req, res)
+		req.body.user = user
 		let province = await provinceController.findByProvId(req, res)
 		if (!province) {
 			province = await provinceController.create(req, res)
@@ -48,6 +53,9 @@ async function createProp(req: Request, res: Response) {
 		}
 		req.body.city._id = city?._id.toHexString()
 		const property = await propertyController.create(req, res)
+		if (!user?.userType! || user?.userType! !== userType?._id) {
+			user = await userController.updateType(req, res)
+		}
 		res.status(201).json({ message: 'Propiedad creada' })
 	} catch (error) {
 		await session.abortTransaction()
