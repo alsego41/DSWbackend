@@ -14,10 +14,19 @@ userRouter.get(
 	SharedController.verifyToken,
 	userController.populate,
 )
+userRouter.get(
+	'/info',
+	SharedController.verifyToken,
+	SharedController.testTokenVerification,
+)
 userRouter.get('/:id', userController.findById)
 userRouter.get('/', userController.findAll)
 userRouter.post('/login', userController.login)
-userRouter.post('/register',userController.sanitizeUserInput, userController.register)
+userRouter.post(
+	'/register',
+	userController.sanitizeUserInput,
+	userController.register,
+)
 userRouter.post('/delete/:id', userController.remove)
 userRouter.patch(
 	'/properties/new',
