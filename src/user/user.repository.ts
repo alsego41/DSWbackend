@@ -32,7 +32,9 @@ export class UserRepository implements Repository<UserClass> {
 	}
 	public async findOne(email: String): Promise<DocumentType<UserClass> | null> {
 		try {
-			const user = await UserModel.findOne({ email }).exec()
+			const user = await UserModel.findOne({ email })
+				.populate('userType')
+				.exec()
 			return user
 		} catch (err) {
 			return null
