@@ -26,10 +26,14 @@ async function populate(req: Request, res: Response) {
 	return res.status(200).json(user)
 }
 
-async function sanitizeUserInput(req: Request, res: Response, next:NextFunction) {
+async function sanitizeUserInput(
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) {
 	const { firstName, lastName, dni, email, address, password, dob, gender } =
 		req.body
-    req.body.sanitizedInput = {
+	req.body.sanitizedInput = {
 		firstName,
 		lastName,
 		dni,
@@ -39,7 +43,6 @@ async function sanitizeUserInput(req: Request, res: Response, next:NextFunction)
 		dob,
 		gender,
 		bankAccount: '',
-
 	}
 
 	next()
@@ -65,22 +68,32 @@ async function login(req: Request, res: Response) {
 		const token = jwt.sign(
 			{
 				id: user?._id,
+				firstName: user?.firstName,
+				lastName: user?.lastName,
+				email: user?.email,
+				userType: user?.userType,
 				// properties: user?.properties
 			},
 			process.env.JWT_TOKEN_KEY as Secret,
 			{ expiresIn: '30 minutes' },
 		)
+		const userInfo = {
+			firstName: user?.firstName,
+			lastName: user?.lastName,
+			email: user?.email,
+			userType: user?.userType,
+		}
 		return res
 			.status(200)
-			.json({ message: 'Login success', token, userStatus: true })
+			.json({ message: 'Login success', token, userInfo, userStatus: true })
 	} else {
 		return res.status(401).json({ message: 'Login failed', status: false })
 	}
 }
 
 async function register(req: Request, res: Response) {
-	const { firstName, lastName, dni, email, address, password, dob, gender, userType } =
-		req.body
+	const { firstName, lastName, dni, email, address, password, dob, gender } =
+		req.body.user
 	if (
 		!(
 			firstName &&
@@ -90,16 +103,19 @@ async function register(req: Request, res: Response) {
 			address &&
 			password &&
 			dob &&
-			gender &&
-			userType
+			gender
 		)
 	) {
+		console.log('User info missing')
 		return undefined
 	}
 	const alreadyUser = await repository.findOne(email)
 	if (alreadyUser) {
+		console.log('User Already exists')
 		return undefined
 	}
+	console.log('Creating user')
+	console.log(req.body.userType)
 	let newUser: UserClass = {
 		firstName,
 		lastName,
@@ -113,10 +129,8 @@ async function register(req: Request, res: Response) {
 		userType: req.body.userType._id,
 	}
 	console.log(newUser)
-	const user = await repository
-		.create(newUser)
-		return user
-		
+	const user = await repository.create(newUser)
+	return user
 }
 
 async function remove(req: Request, res: Response) {
