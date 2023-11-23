@@ -54,7 +54,7 @@ async function findById(req: Request, res: Response) {
 		_id: req.params.id || req.body.decodedToken.id,
 	})
 	if (!user) {
-		return res.status(404).json({ message: 'User not found22' })
+		return res.status(404).json({ message: 'User not found' })
 	}
 	return res.status(200).json(user)
 }

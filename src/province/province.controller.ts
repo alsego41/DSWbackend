@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response  } from 'express'
 import { ProvinceRepository } from '../province/province.repository.js'
-import { ProvinceClass, ProvinceModel } from '../province/province.entity.js'
+import { ProvinceClass } from '../province/province.entity.js'
 
 const provRepository = new ProvinceRepository()
 
