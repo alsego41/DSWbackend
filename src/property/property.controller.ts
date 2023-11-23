@@ -20,6 +20,16 @@ async function findById(req: Request, res: Response) {
 	return res.status(200).json(property)
 }
 
+async function findByIdFull(req: Request, res: Response) {
+	const property = await repository.findByIdFull({
+		_id: req.params.id || req.body.property.id,
+	})
+	if (!property) {
+		return res.status(404).json({ message: 'Property not found' })
+	}
+	return res.status(200).json(property)
+}
+
 async function findByIdSh(req: Request, res: Response) {
 	const property = await repository.findById({
 		_id: req.params.id || req.body.property.id,
@@ -122,6 +132,7 @@ export const propertyController = {
 	findAll,
 	findById,
 	findByIdSh,
+	findByIdFull,
 	findByCity,
 	findByProvince,
 	findByOwner,

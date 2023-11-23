@@ -13,11 +13,24 @@ export class PropertyRepository implements Repository<PropertyClass> {
 		_id: String
 	}): Promise<DocumentType<PropertyClass> | null> {
 		try {
+			console.log('find by id')
 			const property = await PropertyModel.findById(item._id).exec()
 			return property
 		} catch (err) {
 			return null
 		}
+	}
+
+	public async findByIdFull(item: {
+		_id: String
+	}): Promise<DocumentType<PropertyClass> | null> {
+		console.log('find by id full')
+		console.log(item._id)
+		const property = await PropertyModel.findById(item._id)
+			.populate({ path: 'city', populate: { path: 'province' } })
+			.exec()
+		// const property = properties[0]
+		return property
 	}
 
 	public async findByProvince(item: {

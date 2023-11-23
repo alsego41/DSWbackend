@@ -1,5 +1,5 @@
 import { Ref, getModelForClass, index, prop } from '@typegoose/typegoose'
-import { ProvinceClass } from '../province/province.entity.js'
+import { ProvinceClass, ProvinceModel } from '../province/province.entity.js'
 
 @index({ nameCity: 1, nameDepartamento: 1, province: 1 }, { unique: true })
 export class CityClass {

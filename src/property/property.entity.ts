@@ -9,7 +9,7 @@ export class PropertyClass {
 	@prop({ required: true })
 	public statusProperty?: String
 
-	@prop({ required: true, ref: () => CityModel })
+	@prop({ required: true, ref: () => CityClass })
 	public city?: Ref<CityClass>
 
 	@prop({ required: false })

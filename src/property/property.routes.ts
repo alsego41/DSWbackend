@@ -9,6 +9,7 @@ propertyRouter.get(
 	SharedController.verifyToken,
 	propertyController.findByOwner,
 )
+propertyRouter.get('/full/:id', propertyController.findByIdFull)
 propertyRouter.get('/:id', propertyController.findById)
 propertyRouter.get('/', propertyController.findAll)
 // propertyRouter.post(
@@ -17,11 +18,9 @@ propertyRouter.get('/', propertyController.findAll)
 // 	propertyController.create,
 // )
 propertyRouter.post(
-
 	'/find',
 	// SharedController.verifyToken,
 	propertyController.findByCity,
-
 )
 propertyRouter.post('/delete/:id', propertyController.remove)
 propertyRouter.patch(
