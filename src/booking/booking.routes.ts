@@ -5,7 +5,7 @@ import { SharedController } from '../shared/controller.js'
 export const bookingRouter = Router()
 
 bookingRouter.get(
-	'/ownerlist',
+	'/owner',
 	SharedController.verifyToken,
 	bookingController.findByOwner,
 )
