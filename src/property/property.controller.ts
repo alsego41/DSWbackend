@@ -62,8 +62,11 @@ function sanitizePropertyInput(
 }
 
 async function findByCity(req: Request, res: Response) {
-	console.log(req.body.city.id)
-	const properties = await repository.findByCity({ city: req.body.city.id })
+	// console.log(req.body)
+	const properties = await repository.findByCity({
+		city: req.body.city.id,
+		roomQty: req.body.booking.roomQtyExp,
+	})
 	// return res.status(200).json(properties)
 	// console.log(properties)
 	return properties
@@ -72,6 +75,7 @@ async function findByCity(req: Request, res: Response) {
 async function findByProvince(req: Request, res: Response) {
 	const properties = await repository.findByProvince({
 		provinceId: req.body.province._id,
+		roomQty: req.body.booking.roomQtyExp,
 	})
 	return properties
 }

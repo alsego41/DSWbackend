@@ -35,6 +35,7 @@ export class PropertyRepository implements Repository<PropertyClass> {
 
 	public async findByProvince(item: {
 		provinceId: string
+		roomQty: number
 	}): Promise<DocumentType<PropertyClass>[] | undefined> {
 		const provinceId = new mongoose.Types.ObjectId(item.provinceId)
 		const properties = await PropertyModel.aggregate([
@@ -43,13 +44,14 @@ export class PropertyRepository implements Repository<PropertyClass> {
 					from: CityModel.collection.name,
 					localField: 'city',
 					foreignField: '_id',
-					as: 'cityInfo',
+					as: 'city',
 				},
 			},
-			{ $unwind: '$cityInfo' },
+			{ $unwind: '$city' },
 			{
 				$match: {
-					'cityInfo.province': provinceId,
+					'city.province': provinceId,
+					roomQty: { $gte: item.roomQty },
 				},
 			},
 		])
@@ -58,12 +60,16 @@ export class PropertyRepository implements Repository<PropertyClass> {
 
 	public async findByCity(item: {
 		city: string
+		roomQty: number
 	}): Promise<DocumentType<PropertyClass>[] | undefined> {
 		const cityId = new mongoose.Types.ObjectId(item.city)
 		const properties = await PropertyModel.find({
 			city: item.city,
 			statusProperty: 'Disponible',
-		}).exec()
+			roomQty: { $gte: item.roomQty },
+		})
+			.populate('city')
+			.exec()
 		// .select('_id')
 		return properties
 	}
