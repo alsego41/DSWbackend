@@ -77,7 +77,9 @@ export class PropertyRepository implements Repository<PropertyClass> {
 	public async findByOwner(item: {
 		owner: string
 	}): Promise<DocumentType<PropertyClass>[] | undefined> {
-		const properties = await PropertyModel.find({ user: item.owner }).exec()
+		const properties = await PropertyModel.find({ user: item.owner })
+			.populate({ path: 'city', populate: { path: 'province' } })
+			.exec()
 		return properties
 	}
 

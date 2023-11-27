@@ -51,7 +51,10 @@ export class BookingRepository implements Repository<BookingClass> {
 	}): Promise<DocumentType<BookingClass>[] | undefined> {
 		const bookings = await BookingModel.find({ owner: item.owner })
 			.populate([
-				'property',
+				{
+					path: 'property',
+					populate: { path: 'city', populate: { path: 'province' } },
+				},
 				{ path: 'guest', select: 'firstName lastName dni email dob' },
 			])
 			.exec()
@@ -62,10 +65,13 @@ export class BookingRepository implements Repository<BookingClass> {
 		guest: string
 	}): Promise<DocumentType<BookingClass>[] | undefined> {
 		const bookings = await BookingModel.find({ guest: item.guest })
-			// .populate([
-			// 	'property',
-			// 	{ path: 'guest', select: 'firstName lastName dni email dob' },
-			// ])
+			.populate([
+				{ path: 'owner', select: 'firstName lastName email' },
+				{
+					path: 'property',
+					populate: { path: 'city', populate: { path: 'province' } },
+				},
+			])
 			.exec()
 		return bookings
 	}
