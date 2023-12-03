@@ -12,11 +12,11 @@ propertyRouter.get(
 propertyRouter.get('/full/:id', propertyController.findByIdFull)
 propertyRouter.get('/:id', propertyController.findById)
 propertyRouter.get('/', propertyController.findAll)
-// propertyRouter.post(
-// 	'/new',
-// 	SharedController.verifyToken,
-// 	propertyController.create,
-// )
+propertyRouter.post(
+	'/new',
+	SharedController.verifyToken,
+	propertyController.create,
+)
 propertyRouter.post(
 	'/find',
 	// SharedController.verifyToken,
