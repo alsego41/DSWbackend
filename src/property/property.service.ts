@@ -3,6 +3,8 @@ import { ProvinceService } from '../province/province.service.js'
 import { CityService } from '../city/city.service.js'
 import { PropertyClass } from './property.entity.js'
 import { mongoose } from '@typegoose/typegoose'
+import { UserTypeService } from '../userType/userType.service.js'
+import { UserService } from '../user/user.service.js'
 const propRepo = new PropertyRepository()
 
 async function createProperty(data: any) {
@@ -29,6 +31,11 @@ async function createProperty(data: any) {
 			user: decodedToken.id,
 		}
 		const newProp = await propRepo.create(prop)
+		if (decodedToken.userType.nameType === 'Guest') {
+			const userType = await UserTypeService.getHostType()
+			const userTypeId = userType?._id.toHexString()
+			const user = await UserService.updateToHost(decodedToken.id, userTypeId!)
+		}
 		session.commitTransaction()
 		session.endSession()
 		return { property: newProp }
