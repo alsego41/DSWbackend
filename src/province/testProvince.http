@@ -6,7 +6,10 @@ POST http://localhost:3000/province/new
 Content-Type: application/json
 
 {
-    "province": "Buenos Aires"
+    "province": {
+        "id": "06",
+        "nombre": "Buenos Aires"
+    }
 }
 
 

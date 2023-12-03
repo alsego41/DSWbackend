@@ -11,21 +11,32 @@ GET http://localhost:3000/property/6503d0148880588f3dedb171
 ### Create a property
 POST http://localhost:3000/property/new
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsInByb3BlcnRpZXMiOlsiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg0YmI2ZTFmZjU4M2YyYzVmM2I4IiwiNjRmNjg1NjJlNTMwODczYTQ3NzA0MWUxIl0sImlhdCI6MTY5NDc0ODMzMSwiZXhwIjoxNjk0NzUwMTMxfQ.aCGoKjF5Qk9ffOtJj_z4CH_WqxHKdNiQDlEQu5dQIgM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjNkNzQ0OWQxMDcxMWIyNDM0ZjA2OCIsImZpcnN0TmFtZSI6IkFsYmVydG8iLCJsYXN0TmFtZSI6IkdvbnrDoWxleiIsImVtYWlsIjoiYmV0b0BnbWFpbC5jb20iLCJ1c2VyVHlwZSI6eyJfaWQiOiI2NTRmZjQ5ZTg3N2NmNmU0OGQ2MWI2YTIiLCJuYW1lVHlwZSI6Ikhvc3QiLCJfX3YiOjB9LCJpYXQiOjE3MDE2NDI2NDcsImV4cCI6MTcwMTY0NDQ0N30.cmsk1zXzJF4vOlxoXkx3a0dgRyRtGekhIhcu0Kc8wfY
 
 {
-    "nameProperty": "Test casa 1",
-	"statusProperty": "",
-	"photo": "",
-	"address": "Buenos Aires 123",
-	"zone": "Centro",
-	"m2": 85,
-	"spaces": 4,
-	"roomQty": 3,
-	"bathQty": 2,
-	"backyard": false,
-	"grill": false,
-	"user": ""
+	"property": {
+		"nameProperty": "Test services",
+		"statusProperty": "Disponible",
+		"photo": "",
+		"address": "Buenos Aires 123",
+		"zone": "Centro",
+		"m2": 85,
+		"spaces": 4,
+		"roomQty": 3,
+		"bathQty": 2,
+		"backyard": false,
+		"grill": false,
+		"price": 8000
+	},
+	"city": {
+		"id": "82007010000",
+		"nombre": "ARMSTRONG",
+		"departamento": "Belgrano"
+	},
+	"province": {
+		"id": "82",
+		"nombre": "Santa Fe"
+	}
 }
 
 

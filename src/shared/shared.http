@@ -15,3 +15,22 @@ Content-Type: application/json
         "checkOutExp": "2023-06-01"
     }
 }
+
+###
+POST http://localhost:3000/sh/newprop
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWQyYzQ5ZjY0MmZhNjhhMDhmMmJkNCIsImZpcnN0TmFtZSI6IkJldG8iLCJsYXN0TmFtZSI6IkdvbnphbGV6IiwiZW1haWwiOiJiZXRvQGdtYWlsLmNvbSIsImlhdCI6MTcwMDI2MDA2OSwiZXhwIjoxNzAwMjYxODY5fQ.K8CG_LpzEez1mADy1-U2nb_XFKFGBlMU0zylm3k9hak
+
+{
+    "city": {
+        "nombre": "ARROYO VERDE",
+        "departamento": "Biedma"
+    },
+    "province": {
+        "name": "Chubut"
+    },
+    "booking": {
+        "checkInExp": "2023-05-01",
+        "checkOutExp": "2023-06-01"
+    }
+}
