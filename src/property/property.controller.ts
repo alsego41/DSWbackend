@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { PropertyRepository } from './property.repository.js'
 import { PropertyClass } from './property.entity.js'
-import { ProvinceRepository } from '../province/province.repository.js'
+import { PropertyService } from './property.service.js'
 
 const repository = new PropertyRepository()
 
@@ -88,25 +88,11 @@ async function findByOwner(req: Request, res: Response) {
 }
 
 async function create(req: Request, res: Response) {
-	let { property, city, decodedToken } = req.body
-	let newProperty: PropertyClass = {
-		nameProperty: property.nameProperty,
-		statusProperty: property.statusProperty,
-		city: city._id,
-		photo: property.photo,
-		address: property.address,
-		zone: property.zone,
-		m2: property.m2,
-		spaces: property.spaces,
-		roomQty: property.roomQty,
-		bathQty: property.bathQty,
-		backyard: property.backyard,
-		grill: property.grill,
-		price: property.price,
-		user: decodedToken.id,
+	const newProp: any = await PropertyService.createProperty(req.body)
+	if (newProp.error) {
+		return res.status(400).json({ error: newProp.error._message })
 	}
-	const newProp = await repository.create(newProperty)
-	return newProp
+	return res.status(201).json(newProp)
 }
 
 async function remove(req: Request, res: Response) {
